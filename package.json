@@ -18,6 +18,7 @@
     "creator",
     "gennode"
   ],
+  "os" : [ "darwin", "linux" ],
   "author": "Nathan Mersha",
   "licence": "ISC",
   "dependencies": {

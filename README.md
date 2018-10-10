@@ -3,6 +3,14 @@
 #### Author
 Nathan Mersha
 
+### Installation
+
+Gen node is available on npm, type:
+
+`$ sudo npm i -g gennode`
+
+and install it globally, now you can use it from the command line.
+
 ### Philosopy
 Following the trendy naming paradigm of __* as *__ , here comes another one __Server as a configuration__.
 A very simple **CRUD** sever has a set of properties that can be described in a simple configuration file.
@@ -38,14 +46,6 @@ server is up and running. Guide on how to install and run MongoDB can be found [
 3. The reverse proxy value in environment will be used inside a docker container, so avoid using values like 'http://localhost' or 'http://127.0.0.1, since this would effectively
 point to the container itself.
 4. Server and model names will be changed to their corresponding cammel case format according to [this](https://www.npmjs.com/package/camelcase) module.
-
-### Installation
-
-Gen node is available on npm, type:
-
-`$ npm i -g gennode`
-
-and install it globally, now you can use it from the command line.
 
 ### CLI
 
