@@ -1,0 +1,26 @@
+/**
+ * @author              __author__
+ * @name                __serviceName__
+ * @module              index.js
+ * @description         Index file for libraries
+ * @kind                Lib
+ * @copyright           __copyright__
+ */
+
+let
+    errorCodes  = require('./constant/errorCodes'),
+    initializer = require('./middleware/initializer'),
+    constant    = require('./constant/constant'),
+    helper      = require('./helper');
+
+/**
+ * @name            - Index
+ * @description     - Index for libraries
+ * @type {{errorCodes: *, initializer, constant: *}}
+ */
+module.exports = {
+    errorCodes  : errorCodes,
+    initializer : initializer,
+    constant    : constant,
+    helper      : helper
+};

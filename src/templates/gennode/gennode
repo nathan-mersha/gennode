@@ -1,0 +1,10 @@
+/**
+ * @author              __author__
+ * @name                __serviceName__
+ * @module              gennode.config.js
+ * @description         GenNode configuration file
+ * @kind                Configuration
+ * @copyright           GenNode 2018
+ */
+
+module.exports = __configurationExport__

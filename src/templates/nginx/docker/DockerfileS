@@ -1,0 +1,18 @@
+FROM nginx
+
+MAINTAINER __author__
+
+# create ssl directory to hold cert key and pem
+CMD mkdir -p /etc/ssl
+
+# adding ssl (key,certificate and pem)
+ADD ./ssl/. /etc/ssl
+
+# adding custom nginx config file
+ADD nginx.conf /etc/nginx
+
+# exposing port
+EXPOSE 80 443
+
+# default command
+CMD ["nginx", "-g", "daemon off;"]

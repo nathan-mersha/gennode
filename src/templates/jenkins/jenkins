@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+
+  stages {
+    stage(‘Dependency’) {
+        steps {
+          sh ‘npm install’
+        }
+        steps {
+          sh 'sudo service mongod start'
+        }
+      }
+    stage(‘Test’) {
+      steps {
+        sh ‘npm test’
+      }
+    }
+
+    stage(‘Deploy’) {
+      steps {
+        sh ‘docker-compose up --build -d’
+      }
+    }
+  }
+}

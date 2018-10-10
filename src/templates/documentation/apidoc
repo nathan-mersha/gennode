@@ -1,0 +1,7 @@
+{
+  "name"        : "__serviceName__",
+  "version"     : "__version__",
+  "description" : "__serviceDescription__",
+  "title"       : "__serviceName__ documentation.",
+  "url"         : "__proxyAddress__:__port__"
+}

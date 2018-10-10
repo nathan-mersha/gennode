@@ -1,0 +1,106 @@
+/**
+ * @author              __author__
+ * @name                __serviceName__
+ * @module              __modelName__.js
+ * @description         DAL for __modelName__ route.
+ * @kind                DAL
+ * @copyright           __copyright__
+ */
+
+let Model = require('../model/__modelName__');
+
+/**
+ * @name                - Create
+ * @description         - Creates new __modelName__
+ * @param data          - Initial data
+ * @param callback      - Callback function (error,data)
+ */
+exports.create                  = function create(data,callback)                            {
+    Model.create(data,callback);
+};
+
+/**
+ * @name                - Get public
+ * @description         - Retrieves __modelName__ data that is public (some attributes may be hidden)
+ * @param query         - Query
+ * @param callback      - Callback function (error,data)
+ */
+exports.getPublic               = function getPublic(query, callback)                       {
+    Model.findOne(query,callback).select('__privateFields__');
+};
+
+/**
+ * @name                - Get private
+ * @description         - Retrieves private __modelName__ data
+ * @param query         - Query
+ * @param callback      - Callback function (error,data)
+ */
+exports.getPrivate              = function getPrivate(query, callback)                      {
+    Model.findOne(query, callback);
+};
+
+/**
+ * @name                - Get collections Paginated
+ * @description         - Retrieves __modelName__ paginated data (public data - Attributes may be hidden)
+ * @param query         - Query
+ * @param option        - Pagination option (View documentation to view these options)
+ * @param callback      - Callback function (error,data)
+ */
+exports.getCollectionsPaginated = function getCollectionsPaginated(query,option,callback)   {
+    Model.paginate(query,option,function (err,data) {
+        callback(err, data);
+    });
+};
+
+/**
+ * @name                - Get all collection
+ * @description         - Retrieves all data that matches the query
+ * @param query         - Query to look for.
+ * @param callback      - Callback function (error,datas)
+ */
+exports.getAllCollection        = function getAllCollection(query, callback)                {
+    Model.find(query,callback).select('__privateFields__');
+};
+
+/**
+ * @name                - Update
+ * @description         - Finds one __modelName__ that matches query and updates
+ * @param query         - Query
+ * @param updateData    - Update data
+ * @param callback      - Callback function (error,data)
+ */
+exports.update                  = function update(query,updateData,callback)                {
+    Model.findOneAndUpdate(query, updateData, {new: true}, callback).select('__privateFields__');
+};
+
+/**
+ * @name                - Update many
+ * @description         - Finds all __modelName__ data that matches query and update
+ * @param query         - Query
+ * @param updateData    - Update data
+ * @param callback      - Callback function (error,data)
+ */
+exports.updateMany              = function updateMany(query,updateData,callback)            {
+    Model.updateMany(query, updateData, callback);
+};
+
+/**
+ * @name                - Remove
+ * @description         - Finds __modelName__ and removes.
+ * @param query         - Query
+ * @param callback      - Callback function (error,data)
+ */
+exports.remove                  = function remove(query,callback)                           {
+    Model.findOneAndRemove(query,callback).select('__privateFields__');
+};
+
+/**
+ * @name                - Remove many
+ * @description         - Removes all __modelName__ document that matches query
+ * @param query         - Query
+ * @param callback      - Callback function (error,data)
+ */
+exports.removeMany              = function removeMany(query,callback)                       {
+    Model.deleteMany(query,callback);
+};
+

@@ -1,0 +1,77 @@
+/**
+ * @author             __author__
+ * @name               __serviceName__
+ * @description        Manages __modelName__ for __serviceName__
+ * @kind               Model
+ * @module             Defines __modelName__ model
+ * @copyright          __copyright__
+ */
+
+let
+    mongoose            = require('mongoose'),
+    Schema              = mongoose.Schema,
+    config              = require('../config'),
+    mongoosastic        = require('mongoosastic'),
+    debug               = require('debug')('__serviceName__/model/__modelName__'),
+    mongoosePaginate    = require('mongoose-paginate');
+
+let __modelName__ = new Schema({
+    // Schema definition begins here
+     firstModified : {type : Date, es_indexed : true},
+     lastModified : {type : Date, es_indexed : true}
+    // Schema definition ends here
+});
+
+/*
+ Defines which attributes to return in pagination
+ */
+mongoosePaginate.paginate.options = {
+    select : "__elementsViewedInPagination__"
+};
+
+/*
+ Adding plugins
+ */
+__modelName__.plugin(mongoosePaginate);
+
+/*
+ Adding plugin
+ */
+__modelName__.plugin(mongoosastic,{
+    hosts : [
+        String(config.ELASTIC_SEARCH_URL), // Adding elastic search url for latter search indexing...
+    ]
+});
+
+
+// Updating time Stamp of first and last modified before initial save
+__modelName__.pre('save',function preSave(next) {
+    let __modelName__Schema  = this;
+    let now = new Date();
+
+    if(!__modelName__Schema.firstModified ){  // Saving for the first time
+        __modelName__Schema.firstModified  = now.toISOString();
+        __modelName__Schema.lastModified   = now.toISOString();
+        next();
+    }else{ // Saving Modified data
+        __modelName__Schema.lastModified   = now.toISOString();
+        next();
+    }
+});
+
+let __modelName__Schema = mongoose.model('__modelName__', __modelName__);
+
+/**
+ * @description     - Creating mapping with elastic search
+ */
+__modelName__Schema.createMapping(function (err,mapping) {
+    if(err){
+        debug(`Error while mapping`);
+        debug(`Error is : ${err}`);
+    }else{
+        debug(`Successful Mapping`);
+        debug(`${mapping}`);
+    }
+});
+
+module.exports = __modelName__Schema;

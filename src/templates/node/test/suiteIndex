@@ -1,0 +1,18 @@
+/**
+ * @author              __author__
+ * @name                __serviceName__
+ * @description         Test suite index for __serviceName__
+ * @kind                Index
+ * @copyright           __copyright__
+ */
+
+let
+    // Test suite declaration begins here
+    // Test suite declaration ends here
+
+
+module.exports = {
+    // Test suite export begins here
+    // Test suite export ends here
+};
+

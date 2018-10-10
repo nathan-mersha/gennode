@@ -1,0 +1,21 @@
+/**
+ * @author             __author__
+ * @name               __serviceName__
+ * @description        Route index for __serviceName__
+ * @kind               Route
+ * @module             Route index
+ * @copyright          __copyright__
+ */
+
+// Begin route var declaration here
+let
+// End route var declaration here
+
+/**
+ * @description     - Defines the first routing mechanism
+ * @param app       - The router object
+ */
+module.exports = function (app) {
+// Begin routing definition here
+// End Routing definition here
+};

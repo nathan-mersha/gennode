@@ -1,0 +1,185 @@
+/**
+ * @author              __author__
+ * @name                __serviceName__
+ * @module              __modelName__.js
+ * @description         Route for __modelName__
+ * @kind                Router
+ * @copyright           __copyright__
+ */
+
+let
+    express = require('express'),
+    router = express.Router(),
+    controller = require('../controller/__modelName__');
+
+/**
+ * @api             {post} __baseURL__/__modelName__     Create
+ * @apiVersion      __version__
+ * @apiName         Create
+ * @apiGroup        __modelName__
+ * @apiDescription  Creates new __modelName__ data
+ *
+ * @apiPermission     All
+ *
+ * End inserting sample body example descriptor here POST
+ *
+ * @apiParamExample Body
+ *
+ * End inserting sample body example here POST
+ *
+ * End inserting success body descriptor here POST
+ *
+ * @apiSuccessExample Body
+ *
+ * End inserting success body here POST
+ *
+ * @apiSampleRequest http://localhost:__port____baseURL__/__modelName__
+ *
+ * @apiError    (400)       {Object}    AUTHENTICATION_NOT_SET              - Authentication values are not set.
+ * @apiError    (400)       {Object}    AUTHENTICATION_TYPE_NOT_ACCORD      - Authentication type is not according to constants.
+ * @apiError    (400)       {Object}    AUTHENTICATION_VALUE_NOT_SET        - Authentication values are not set.
+ * @apiError    (401)       {Object}    UNAUTHORIZED_ACCESS                 - Token is not authorized to access this route..
+ * @apiError    (401)       {Object}    TOKEN_REVOKED                       - Token is revoked.
+ * @apiError    (401)       {Object}    TOKEN_EXPIRED                       - Token has expired.
+ * @apiError    (401)       {Object}    AUTHORIZED_SERVICE_ACCESS_DENIED    - Service has no been granted access.
+ *
+ * @apiError    (400)       {Object}    CAST_ERROR                          - Possible casting error.
+ * @apiError    (400)       {Object}    NO_QUERY_DATA                       - No proper or no query data has been provided.Mainly could be caused by using wrong key in url.
+ * @apiError    (400)       {Object}    NO_DATA_FOUND                       - No data found in query.
+ */
+router.post('/'     , controller.create);
+
+/**
+ * @api             {get} __baseURL__/__modelName__     Get
+ * @apiVersion      __version__
+ * @apiName         Get
+ * @apiGroup        __modelName__
+ * @apiDescription  Retrieves __modelName__ data
+ *
+ * @apiPermission     All
+ *
+ * @apiParam (Query)        {Number}    [page = 1]                          - Page Number
+ * @apiParam (Query)        {String}    [sort = id]                         - Sort order by
+ * @apiParam (Query)        {Boolean}   [lean = false]                      - Lean
+ * @apiParam (Query)        {Number}    [offset = 0]                        - Offset
+ * @apiParam (Query)        {Number}    [limit = __limitValue__]            - Limit of return
+ *
+ * End inserting other query values here GET
+ *
+ * @apiSuccess              {array}     docs                                - Documents array result
+ * @apiSuccess              {Number}    total                               - Total number of retrieved results
+ * @apiSuccess              {Number}    limit                               - Limit of a single return
+ * @apiSuccess              {Number}    offset                              - Offset
+ *
+ * @apiSuccessExample Body
+ *
+ * {
+        "docs": [
+
+           End inserting body data here GET
+        ],
+        "total": 12,
+        "limit": 3,
+        "offset": 0
+    }
+ *
+ * @apiSampleRequest http://localhost:__port____baseURL__/__modelName__
+ *
+ * @apiError    (400)       {Object}    AUTHENTICATION_NOT_SET              - Authentication values are not set.
+ * @apiError    (400)       {Object}    AUTHENTICATION_TYPE_NOT_ACCORD      - Authentication type is not according to constants.
+ * @apiError    (400)       {Object}    AUTHENTICATION_VALUE_NOT_SET        - Authentication values are not set.
+ * @apiError    (401)       {Object}    UNAUTHORIZED_ACCESS                 - Token is not authorized to access this route..
+ * @apiError    (401)       {Object}    TOKEN_REVOKED                       - Token is revoked.
+ * @apiError    (401)       {Object}    TOKEN_EXPIRED                       - Token has expired.
+ * @apiError    (401)       {Object}    AUTHORIZED_SERVICE_ACCESS_DENIED    - Service has no been granted access.
+ *
+ * @apiError    (400)       {Object}    CAST_ERROR                          - Possible casting error.
+ * @apiError    (400)       {Object}    NO_QUERY_DATA                       - No proper or no query data has been provided.Mainly could be caused by using wrong key in url.
+ * @apiError    (400)       {Object}    NO_DATA_FOUND                       - No data found in query.
+ */
+router.get('/'      , controller.find);
+
+
+/**
+ * @api             {put} __baseURL__/__modelName__     Update
+ * @apiVersion      __version__
+ * @apiName         Update
+ * @apiGroup        __modelName__
+ * @apiDescription  Updates new __modelName__ data
+ *
+ * @apiPermission     All
+ *
+ * @apiParamExample Body
+ *
+ * End inserting sample body example here PUT
+ *
+ *
+ * End inserting valid queries PUT
+ *
+ * @apiSuccess              {String}    n                                   - Number of objects manipulated
+ * @apiSuccess              {String}    nModified                           - Number of objects modified based on query
+ * @apiSuccess              {String}    ok                                  - Number of objects successfully modified
+ *
+ * @apiSuccessExample Body
+ *
+ *  {
+      "n" : "1",
+      "nModified" : "1",
+      "ok" : "1"
+    }
+ *
+ *
+ * @apiSampleRequest http://localhost:__port____baseURL__/__modelName__
+ *
+ * @apiError    (400)       {Object}    AUTHENTICATION_NOT_SET              - Authentication values are not set.
+ * @apiError    (400)       {Object}    AUTHENTICATION_TYPE_NOT_ACCORD      - Authentication type is not according to constants.
+ * @apiError    (400)       {Object}    AUTHENTICATION_VALUE_NOT_SET        - Authentication values are not set.
+ * @apiError    (401)       {Object}    UNAUTHORIZED_ACCESS                 - Token is not authorized to access this route..
+ * @apiError    (401)       {Object}    TOKEN_REVOKED                       - Token is revoked.
+ * @apiError    (401)       {Object}    TOKEN_EXPIRED                       - Token has expired.
+ * @apiError    (401)       {Object}    AUTHORIZED_SERVICE_ACCESS_DENIED    - Service has no been granted access.
+ *
+ * @apiError    (400)       {Object}    CAST_ERROR                          - Possible casting error.
+ * @apiError    (400)       {Object}    NO_QUERY_DATA                       - No proper or no query data has been provided.Mainly could be caused by using wrong key in url.
+ * @apiError    (400)       {Object}    NO_DATA_FOUND                       - No data found in query.
+ */
+router.put('/'      , controller.update);
+
+/**
+ * @api             {delete} __baseURL__/__modelName__     Delete
+ * @apiVersion      __version__
+ * @apiName         Delete
+ * @apiGroup        __modelName__
+ * @apiDescription  Deletes __modelName__ data
+ *
+ * @apiPermission     All
+ *
+ * End inserting valid queries DELETE
+ *
+ * @apiSuccess              {String}    n                                   - Number of objects manipulated
+ * @apiSuccess              {String}    ok                                  - Number of objects successfully deleted
+ *
+ * @apiSuccessExample Body
+ *
+ *  {
+      "n" : "1",
+      "ok" : "1"
+    }
+ *
+ * @apiSampleRequest http://localhost:__port____baseURL__/__modelName__
+ *
+ * @apiError    (400)       {Object}    AUTHENTICATION_NOT_SET              - Authentication values are not set.
+ * @apiError    (400)       {Object}    AUTHENTICATION_TYPE_NOT_ACCORD      - Authentication type is not according to constants.
+ * @apiError    (400)       {Object}    AUTHENTICATION_VALUE_NOT_SET        - Authentication values are not set.
+ * @apiError    (401)       {Object}    UNAUTHORIZED_ACCESS                 - Token is not authorized to access this route..
+ * @apiError    (401)       {Object}    TOKEN_REVOKED                       - Token is revoked.
+ * @apiError    (401)       {Object}    TOKEN_EXPIRED                       - Token has expired.
+ * @apiError    (401)       {Object}    AUTHORIZED_SERVICE_ACCESS_DENIED    - Service has no been granted access.
+ *
+ * @apiError    (400)       {Object}    CAST_ERROR                          - Possible casting error.
+ * @apiError    (400)       {Object}    NO_QUERY_DATA                       - No proper or no query data has been provided.Mainly could be caused by using wrong key in url.
+ * @apiError    (400)       {Object}    NO_DATA_FOUND                       - No data found in query.
+ */
+router.delete('/'   , controller.remove);
+
+module.exports = router;

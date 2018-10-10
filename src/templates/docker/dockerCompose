@@ -1,0 +1,31 @@
+version: '2'
+services:
+
+  #################################################################################################################################
+  ########################                      __serviceName__              #####################################################
+  #################################################################################################################################
+
+    __serviceName__:
+      build: ./.
+      ports:
+        - "__port__:__port__"
+      restart: always
+      environment:
+        - DEBUG=*
+        - HTTP_PORT=__port__
+        - MODE=__runningMode__
+        - MONGODB_URL=mongodb://__serviceName___db:27017/__serviceName__
+        - REVERSE_PROXY=__reverseProxy__
+        - COLLECTION_RETURN_SIZE=__collectionReturnSize__
+        - ELASTIC_SEARCH_URL=__elasticSearchUrl__
+      depends_on:
+         - __serviceName___db
+    # Defining __serviceName__ DB
+    __serviceName___db:
+       image: mongo:latest
+       restart: always
+       volumes:
+         - .:/var/lib/mongodb
+
+  #################################################################################################################################
+  #################################################################################################################################
