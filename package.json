@@ -1,7 +1,7 @@
 {
   "name": "gennode",
   "version": "0.0.3",
-  "description": "Simple node server generator",
+  "description": "Simple NodeJs server generator",
   "preferGlobal": true,
   "bin": {
     "gennode": "./cli.js"
@@ -16,11 +16,8 @@
     "server",
     "generator",
     "creator",
+    "create",
     "gennode"
-  ],
-  "os": [
-    "darwin",
-    "linux"
   ],
   "author": "Nathan Mersha",
   "licence": "ISC",

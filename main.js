@@ -34,7 +34,9 @@ let
     path            = require('path'),
     xtend           = require('xtend');
 
-const log = ">> ";
+const
+    log  = ">> ",
+    iLog = ">>>>";
 
 /**
  * @name                - Config index
@@ -91,7 +93,16 @@ module.exports = {
             commitFiles,
             runServer
         ],function () {
-            console.log('Process completed.');
+            console.log('Completed generating server files.');
+            console.log(`\n\n\n
+        --------------------------------------------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------------------------------
+        -------------            Thanks for using GenNode, an open source NodeJs server generator.             -------------
+        -------------------      Consider contributing : https://github.com/nathan-mersha/gennode      ---------------------
+        --------------------------------------------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------------------------------------------
+        \n\n\n
+        `);
         });
 
         /**
@@ -144,7 +155,7 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function validateNameOnModel(cb) {
-                console.log('Validate name on model.');
+                console.log(`${iLog} Validate name on model.`);
                 let error = false;
                 mergedConfig.models.forEach(function (model, index) {
                     if(util.isNullOrUndefined(model.options.name)) {
@@ -161,11 +172,10 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function refactorModelName(cb) {
-                console.log('Refactoring model name');
+                console.log(`${iLog} Refactoring model name`);
 
                 mergedConfig.models.forEach(function (model) {
                     model.options.name = camelCase(model.options.name);
-                    console.log("Options name : " + model.options.name);
                 });
                 cb(null);
             }
@@ -176,7 +186,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function refactorServiceName(cb) {
-                console.log('Refactoring service name init.');
+                console.log(`${iLog} Refactoring service name init.`);
+
                 mergedConfig.serviceName = camelCase(mergedConfig.serviceName);
                 cb(null);
             }
@@ -187,7 +198,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function validateModelNameSimilarity(cb) {
-                console.log('Validate model name similarity.');
+                console.log(`${iLog} Validate model name similarity.`);
+
                 let modelNames = [];
                 let error = false;
                 mergedConfig.models.forEach(function (model, index) {
@@ -207,7 +219,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function validatePort(cb) {
-                console.log('Validating port.');
+                console.log(`${iLog} Validating port.`);
+
                 if(isNaN(mergedConfig.environment.PORT)) {
                     console.error(`Port value : ${mergedConfig.environment.PORT} is not a number.`)
                 }else{
@@ -221,7 +234,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function validateRouteEnable(cb) {
-                console.log('Validating if at least one mode has enabled route on.');
+                console.log(`${iLog} Validating if at least one mode has enabled route on.`);
+
                 let routeEnabled = false;
                 mergedConfig.models.forEach(function (model) {
                     if(model.options.enableRoute) {
@@ -241,7 +255,7 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function validateFieldTypes(cb) {
-                console.log('Validate field types init.');
+                console.log(`${iLog} Validate field types init.`);
 
                 let validTypes = ["String", "Number", "Boolean", "Bool", "Array", "Buffer", "Date", "ObjectId", "Oid", "Map", "Mixed"];
                 let error = false;
@@ -251,7 +265,7 @@ module.exports = {
                         fieldsKey.forEach(function (fieldKey) {
                             if(validTypes.indexOf(model.fields[fieldKey].type) === -1) {
                                 error = true;
-                                console.log(`Field type ${fieldKey} on ${model.options.name} must be of type : ${validTypes}`);
+                                console.error(`Field type ${fieldKey} on ${model.options.name} must be of type : ${validTypes}`);
                             }
                         })
                     }
@@ -282,7 +296,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function refactorBaseURL(cb) {
-                console.log('Refactor base url.');
+                console.log(`${iLog} Refactor base url.`);
+
                 if(!mergedConfig.baseURL.startsWith('/')) {
                     mergedConfig.baseURL = '/'.concat(mergedConfig.baseURL);
                 }
@@ -296,7 +311,7 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function refactorFieldType(cb) {
-                console.log('Refactor field type');
+                console.log(`${iLog} Refactor field type`);
 
                 mergedConfig.models.forEach(function (model) {
                     let fieldsKey = Object.keys(model.fields);
@@ -345,11 +360,11 @@ module.exports = {
             console.log(`${log} 7. Copying certificate init.`);
 
             if(! util.isNullOrUndefined(mergedConfig.certificate.root) || ! util.isNullOrUndefined(mergedConfig.certificate.clientKey) || ! util.isNullOrUndefined(mergedConfig.certificate.client)) {
-                console.log(`Copying certificate from : ${path.resolve('../', mergedConfig.certificate)}`);
+                console.log(`${iLog} Copying certificate from : ${path.resolve('../', mergedConfig.certificate)}`);
                 shelljs.cp('-R', path.resolve('../', mergedConfig.certificate), path.resolve('./lib/helper/api/cert/.'));
                 callback(null);
             }else{
-                console.info("No certificate found, skipping ...");
+                console.log(`${iLog} No certificate found, skipping ...`);
                 callback(null);
             }
         }
@@ -495,7 +510,6 @@ module.exports = {
                 replacePlaceHolders,
                 replaceDependantServices
             ], function () {
-                console.log('Generate app file completed.');
                 callback(null);
             });
 
@@ -505,7 +519,8 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function replacePlaceHolders(cb)            {
-                console.log("Replacing comments init.");
+                console.log(`${iLog} Replacing comments init.`);
+
                 lib.generator(path.resolve(__dirname, './src/templates/node/app'), replaceValues.app(), 'app.js', '.', cb);
             }
 
@@ -515,7 +530,7 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function replaceDependantServices(cb)       {
-                console.log("Replace dependant services init.");
+                console.log(`${iLog} Replace dependant services init.`);
 
                 let
                     templatePath        = './app.js',
@@ -542,20 +557,20 @@ module.exports = {
          * @param callback          - Callback function (error)
          */
         function generateModels                 (callback) {
-            console.log('');
             console.log(`${log} 20. Generate models init.`);
 
-            let
-                models  = mergedConfig.models,
-                counter = 0;
+            let models  = mergedConfig.models,
+                modelGenerator = [];
 
             models.forEach(function (model) {
-                generateModelFile(model, function () {
-                    counter++;
-                    if(counter === models.length) {callback(null);}
+                modelGenerator.push(function (cb) {
+                    generateModelFile(model,cb);
                 });
             });
 
+            async.waterfall(modelGenerator, function () {
+                callback(null);
+            });
 
             /**
              * @name                - Generate model
@@ -568,9 +583,9 @@ module.exports = {
 
                 async.waterfall([
                     replacePlaceHolders,
-                    createSchema
+                    createSchema,
+                    cleanUpType
                 ],function () {
-                    console.log(`-------------------------------> Completed generating model file for : ${model.options.name}`);
                     cb(null);
                 });
 
@@ -580,7 +595,7 @@ module.exports = {
                  * @param cb1           - Callback function (error)
                  */
                 function replacePlaceHolders    (cb1)       {
-                    console.log(`Replacing place holders for model : ${model.options.name}`);
+                    console.log(`${iLog} Replacing place holders for model : ${model.options.name}`);
                     lib.generator(path.resolve(__dirname, './src/templates/node/model/model'), replaceValues.model(model.options.name, generateElementsForPagination()), `${model.options.name}.js`, './model', cb1);
                 }
 
@@ -590,7 +605,7 @@ module.exports = {
                  * @param cb1           - Callback function (error)
                  */
                 function createSchema           (cb1)       {
-                    console.log(`Creating schema for model : ${model.options.name}`);
+                    console.log(`${iLog} Creating schema for model : ${model.options.name}`);
 
                     let
                         templatePath        = `./model/${model.options.name}.js`,
@@ -633,13 +648,17 @@ module.exports = {
                     }
                 }
 
+                function cleanUpType(cb1) {
+                    console.log(`${iLog} Clean up type declaration : ${model.options.name}`);
+                    lib.generator(path.resolve(__dirname, `./model/${model.options.name}`), replaceValues.modelCleanUp(), `${model.options.name}.js`, './model', cb1);
+                }
+
                 /**
                  * @name                - Generate elements for pagination
                  * @description         - Generates elements for pagination view for the current model on iteration
                  * @return {string}     - Return elements view on pagination
                  */
                 function generateElementsForPagination()    {
-                    console.log(`Generating elements for pagination view for model : ${JSON.stringify(model)}`);
                     let
                         visibleElements = "",
                         fieldsKey = Object.keys(model.fields);
@@ -666,12 +685,11 @@ module.exports = {
 
             let
                 models  = mergedConfig.models,
-                counter = 0;
+                dalGenerator = [];
 
-            models.forEach(function (model) {
+            function genDal(model,cb) {
                 let modelName = model.options.name,
                     privateFields = function () {
-                        // todo add private fields here
                         let
                             hideFields = "",
                             fieldsKey  = Object.keys(model.fields);
@@ -682,11 +700,17 @@ module.exports = {
                         });
                         return hideFields;
                     };
-                lib.generator(path.resolve(__dirname, './src/templates/node/dal/dal'), replaceValues.dal(modelName, privateFields), `${modelName}.js`, './dal', function () {
-                    console.log("Model name : " + modelName);
-                    counter++;
-                    if(counter === models.length) {callback(null);}
-                });
+                lib.generator(path.resolve(__dirname, './src/templates/node/dal/dal'), replaceValues.dal(modelName, privateFields), `${modelName}.js`, './dal', cb);
+            }
+
+            models.forEach(function (model) {
+                dalGenerator.push(function (cb) {
+                    genDal(model, cb);
+                })
+            });
+
+            async.waterfall(dalGenerator, function () {
+                callback(null);
             });
         }
 
@@ -700,13 +724,11 @@ module.exports = {
 
             let
                 models  = mergedConfig.models,
-                counter = 0;
+                controllerGenerators = [];
 
             models.forEach(function (model) {
-                generateControllerFile(model, function () {
-                    counter++;
-                    console.log("Done generating controller file for model : " + JSON.stringify(model.options.name));
-                    if(counter === models.length) {callback(null);}
+                controllerGenerators.push(function (cb) {
+                    generateControllerFile(model, cb);
                 });
             });
 
@@ -717,8 +739,6 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function generateControllerFile(model, cb) {
-                console.log("Generating controller files.");
-
                 async.waterfall([
                     validateIfModelRequiresController,
                     createController
@@ -732,11 +752,10 @@ module.exports = {
                  * @param cb2       - Callback function (error)
                  */
                 function validateIfModelRequiresController(cb2) {
-                    console.log("Validating if model requires controller.");
+                    console.log(`${iLog} Validating if model requires controller.`);
 
                     if(model.options.enableRoute) {cb2(null);}
                     else{
-                        console.log(`Model : ${model.options.name} does not require controller`);
                         cb(null);
                     }
                 }
@@ -747,7 +766,7 @@ module.exports = {
                  * @param cb2       - Callback function (error)
                  */
                 function createController(cb2)                  {
-                    console.log(`Generating controller file for : ${model.options.name}`);
+                    console.log(`${iLog} Generating controller file for : ${model.options.name}`);
 
                     let controllerReplacements = {
 
@@ -791,6 +810,10 @@ module.exports = {
                 }
             }
 
+            async.waterfall(controllerGenerators, function () {
+                callback(null);
+            });
+
         }
 
         /**
@@ -806,7 +829,6 @@ module.exports = {
                 replaceRouteVarDeclaration,
                 replaceRoutingDefinition
             ], function () {
-                console.log('Generate route.js index file completed.');
                 callback(null);
             });
 
@@ -816,7 +838,7 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function replacePlaceHolders(cb)        {
-                console.log("Replacing comments init.");
+                console.log(`${iLog} Replacing comments init.`);
                 lib.generator(path.resolve(__dirname, './src/templates/node/route/routeIndex'), replaceValues.routerIndex(), 'index.js', './routes', cb);
             }
 
@@ -826,7 +848,7 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function replaceRouteVarDeclaration(cb) {
-                console.log("Replace dependant services init.");
+                console.log(`${iLog} Replace dependant services init.`);
 
                 let
                     templatePath        = './routes/index.js',
@@ -843,7 +865,6 @@ module.exports = {
                             }
                         });
                         parsedValues[parsedValues.length-1] = parsedValues[parsedValues.length-1].replace(',', ";");
-                        console.log('Parsed value : ' + parsedValues);
                         return parsedValues;
                     },
                     mark                = "// End route var declaration here",
@@ -857,7 +878,7 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function replaceRoutingDefinition(cb)   {
-                console.log("Replace routing definition init.");
+                console.log(`${iLog} Replace routing definition init.`);
 
                 let
                     templatePath        = './routes/index.js',
@@ -890,15 +911,18 @@ module.exports = {
             console.log(`${log} 24. Generate routes init.`);
 
             let models  = mergedConfig.models,
-                counter = 0;
+                routeGenerator = [];
 
-            models.forEach(function (model, index) {
+            models.forEach(function (model) {
                 if(model.options.enableRoute) {
-                    lib.generator(path.resolve(__dirname, './src/templates/node/route/route'), replaceValues.route(model.options.name), `${model.options.name}.js`, './routes', function () {
-                        counter++;
-                        if(index === models.length - 1) {callback(null);}
+                    routeGenerator.push(function (cb) {
+                        lib.generator(path.resolve(__dirname, './src/templates/node/route/route'), replaceValues.route(model.options.name), `${model.options.name}.js`, './routes', cb);
                     });
-                }else{counter ++;}
+                }
+            });
+
+            async.waterfall(routeGenerator, function () {
+                callback(null);
             });
         }
 
@@ -925,7 +949,7 @@ module.exports = {
                  * @param cb            - Callback function (error)
                  */
                 function generateDockerFile(cb) {
-                    console.log('Generate docker file.');
+                    console.log(`${iLog} Generate docker file.`);
                     lib.generator(path.resolve(__dirname, './src/templates/docker/dockerfile'), replaceValues.dockerFile(), 'Dockerfile', '.', cb);
                 }
 
@@ -935,7 +959,7 @@ module.exports = {
                  * @param cb            - Callback function (error)
                  */
                 function generateDockerComposeFile(cb) {
-                    console.log('Generate docker compose file.');
+                    console.log(`${iLog} Generate docker compose file.`);
                     lib.generator(path.resolve(__dirname, './src/templates/docker/dockerCompose'), replaceValues.dockerCompose(), 'docker-compose.yml', '.', cb);
                 }
 
@@ -945,7 +969,7 @@ module.exports = {
                  * @param cb            - Callback function (error)
                  */
                 function generateDockerIgnoreFile(cb) {
-                    console.log('Generate docker ignore file');
+                    console.log(`${iLog} Generate docker ignore file.`);
                     lib.generator(path.resolve(__dirname, './src/templates/docker/dockerIgnore'), replaceValues.dockerIgnore(), '.dockerignore', '.', cb);
                 }
             }else{
@@ -961,7 +985,6 @@ module.exports = {
          */
         function installPackages                (callback) {
             console.log(`${log} 26. Install packages init.`);
-
             shelljs.exec('npm install');
             callback(null);
         }
@@ -1013,7 +1036,7 @@ module.exports = {
                  * @param cb        - Callback function (error)
                  */
                 function generateFiles      (cb) {
-                    console.log(`Generating dummy data, url generator and test file data.`);
+                    console.log(`${iLog} Generating dummy data, url generator and test file data.`);
 
                     async.waterfall([
                         generateBasicUrlGenerator,
@@ -1099,13 +1122,12 @@ module.exports = {
                  * @param cb        - Callback function (error)
                  */
                 function insertUrlGenerator (cb) {
-                    console.log(`Insert url generator files.`);
+                    console.log(`${iLog} Insert url generator files.`);
 
                     async.waterfall([
                         insertRoutesVar,
                         insertRoutesDefinition
                     ],function () {
-                        console.log(`Inserting url generator file completed.`);
                         cb(null);
                     });
 
@@ -1160,7 +1182,7 @@ module.exports = {
                  * @param cb       - Callback function (error)
                  */
                 function insertDummyData    (cb) {
-                    console.log(`Inserting dummy data.`);
+                    console.log(`${iLog} Inserting dummy data.`);
 
                     let
                         templatePath        = './test/dummy_data.js',
@@ -1200,7 +1222,7 @@ module.exports = {
                  * @param cb        - Callback function (error)
                  */
                 function insertTest         (cb) {
-                    console.log(`Insert test file.`);
+                    console.log(`${iLog} Insert test file.`);
 
                     let
                         templatePath        = './test/test.js',
@@ -1229,7 +1251,7 @@ module.exports = {
                  * @param cb        - Callback function (error)
                  */
                 function insertEvalStatements(cb) {
-                    console.log('Inserting public and private evaluation statements.');
+                    console.log(`${iLog} Inserting public and private evaluation statements.`);
 
                     let models = mergedConfig.models;
                     let evalStatementGenerator = [];
@@ -1286,9 +1308,9 @@ module.exports = {
                     async.waterfall(evalStatementGenerator, cb);
                 }
             }else{
+                console.log('Skipping...');
                 callback(null);
             }
-
         }
 
         /**
@@ -1301,8 +1323,8 @@ module.exports = {
 
             if(mergedConfig.test){
                 shelljs.exec('npm run test');
-            }
-            callback(null);
+                callback(null);
+            }else{callback(null);}
         }
 
         /**
@@ -1328,7 +1350,8 @@ module.exports = {
                  * @param cb            - Callback function (error)
                  */
                 function generatesApiDocConfig(cb) {
-                    console.log('Generating api doc config.');
+                    console.log(`${iLog} Generating api doc config.`);
+
                     lib.generator(path.resolve(__dirname, './src/templates/documentation/apidoc'), replaceValues.apidoc(), `apidoc.json`, '.', cb);
                 }
 
@@ -1338,7 +1361,7 @@ module.exports = {
                  * @param cb            - Callback function (error)
                  */
                 function insertApiDocValues(cb) {
-                    console.log('Insert api doc value');
+                    console.log(`${iLog} Insert api doc value`);
 
                     let filteredModels = nodeGenConfig.models.filter(model => model.options.enableRoute);
                     let index = 0;
@@ -1523,7 +1546,6 @@ module.exports = {
                          * @param cb3           - Callback function (error)
                          */
                         function cleanUpDocumentation(cb3) {
-                            console.log(`Clean up documentation for ${model.options.name}`);
                             lib.generator(path.resolve(`./routes/${model.options.name}.js`), replaceValues.documentationCleanUp(), `${model.options.name}.js`, './routes', cb3);
                         }
 
@@ -1536,7 +1558,8 @@ module.exports = {
                  * @param cb            - Callback function (error)
                  */
                 function generateDoc(cb) {
-                    console.log('Generating documentation using apidoc.');
+                    console.log(`${iLog} Generating documentation using apidoc.`);
+
                     shelljs.exec('npm run apidoc');
                     cb(null);
                 }
@@ -1570,7 +1593,8 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function cleanHeader(cb) {
-                console.log("Cleaning header.");
+                console.log(`${iLog} Cleaning header.`);
+
                 cb(null);
             }
 
@@ -1580,7 +1604,8 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function cleanFunction(cb) {
-                console.log("Clean functions.");
+                console.log(`${iLog} Clean functions.`);
+
                 cb(null);
             }
 
@@ -1591,6 +1616,8 @@ module.exports = {
              */
             function cleanProgress(cb) {
                 console.log("Clean progress message");
+                console.log(`${iLog} `);
+
                 cb(null);
             }
 
@@ -1600,7 +1627,8 @@ module.exports = {
              * @param cb            - Callback function (error)
              */
             function cleanTODO(cb) {
-                console.log("Clean todo messages.");
+                console.log(`${iLog} Clean todo messages.`);
+
                 cb(null);
             }
 
@@ -1638,7 +1666,6 @@ module.exports = {
                     generateJenkins,
                     insertCertificate
                 ],function () {
-                    console.log('Generate nginx config');
                     callback(null);
                 });
             }else{callback(null);}
@@ -1658,7 +1685,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function generateDirs(cb) {
-                console.log('Generating directories.');
+                console.log(`${iLog} Generating directories.`);
+
                 shelljs.mkdir(['reverse_proxy']);
                 if(usingCert()) {
                     shelljs.mkdir(['reverse_proxy/ssl']);
@@ -1672,7 +1700,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function generateDocker(cb) {
-                console.log('Generate docker files for nginx.');
+                console.log(`${iLog} Generate docker files for nginx.`);
+
                 lib.generator(path.resolve(__dirname, usingCert() ? './src/templates/nginx/docker/DockerfileS' : './src/templates/nginx/docker/Dockerfile'), replaceValues.dockerFileNginx(), 'Dockerfile', './reverse_proxy', function () {
                     lib.generator(path.resolve(__dirname, './src/templates/nginx/docker/docker-compose'), replaceValues.dockerComposeNginx(), 'docker-compose.yml', './reverse_proxy', cb);
                 });
@@ -1684,12 +1713,13 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function generateConfigFile(cb) {
+                console.log(`${iLog} Generating config file.`);
+
                 async.waterfall([
                     generateInitConfigFile,
                     insertAuthenticationConfig,
                     insertUserConfig
                 ],function () {
-                    console.log('Generate config file.');
                     cb(null);
                 });
 
@@ -1699,7 +1729,6 @@ module.exports = {
                  * @param cb2       - Callback function (error)
                  */
                 function generateInitConfigFile(cb2) {
-                    console.log('Generates config file.');
                     lib.generator(
                         path.resolve(__dirname, usingCert() ? './src/templates/nginx/nginxConfigS' : './src/templates/nginx/nginxConfig'),
                         replaceValues.nginxConfig(usingCert()),
@@ -1735,7 +1764,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function generateJenkins(cb) {
-                console.log('Generating jenkins file for the reverse proxy.');
+                console.log(`${iLog} Generating jenkins file for the reverse proxy.`);
+
                 lib.generator(path.resolve(__dirname, './src/templates/nginx/jenkins'), replaceValues.jenkinsNginx(), 'Jenkinsfile', './reverse_proxy', cb);
             }
 
@@ -1745,6 +1775,8 @@ module.exports = {
              * @param cb        - Callback function (error)
              */
             function insertCertificate(cb) {
+                console.log(`${iLog} Copying certificate`);
+
                 if(usingCert()) {
                     // todo insert certificate here
                     cb(null);
@@ -1799,7 +1831,6 @@ module.exports = {
             console.log(`${log} 38. Commit and push init.`);
 
             if(mergedConfig.commit) {
-                console.log('Git add.');
                 shelljs.exec('git add .');
                 shelljs.exec(`git commit --message="Initial commit by gennode"`);
                 callback(null);
@@ -1851,7 +1882,6 @@ module.exports = {
             mergeDefaultConfigAndAnswer,
             generateConfigurationFile
         ],function () {
-            console.log('Generated config file.')
         });
 
         /**
@@ -1894,7 +1924,6 @@ module.exports = {
             callback(null);
         }
 
-
         /**
          * @name            - Insert dummy model data
          * @description     - Inserts dummy model data
@@ -1934,7 +1963,6 @@ module.exports = {
          * @param callback  - Callback function (error)
          */
         function generateConfigurationFile(callback) {
-            console.log('Generate configuration file init.');
             lib.generator(path.resolve(__dirname, './src/templates/gennode/gennode'), replaceValues.genNodeConfig(answers.author, answers.serviceName, JSON.stringify(mergedConfig, null,  4)), 'gennode.config.js', '.', callback);
         }
     }
@@ -1953,8 +1981,6 @@ module.exports = {
  * @param callback                  - Callback function (error)
  */
 function replaceMultipleValuesByMark(templatePath, fileName, parentPath, replacementValues, mark, tab=2, markBelow, callback) {
-    console.log("Replacing multiple values by mark.");
-
     if(replacementValues.length > 0) {
         if(!markBelow){replacementValues = replacementValues.reverse()}
         let nextIndex = 1;
@@ -1979,7 +2005,6 @@ function mergeConfigFiles(inputConfigModel, callback) {
         mergeFields,
         mergeConfig
     ],function () {
-        console.log("Merge config file completed.");
         callback(null);
     });
 
@@ -1989,7 +2014,6 @@ function mergeConfigFiles(inputConfigModel, callback) {
      * @param cb            - Callback function (error)
      */
     function mergeModel(cb) {
-        console.log('Merge model init.');
 
         if(inputConfigModel.models.length === 0) {
             console.error('Configuration must contain at least one model');
@@ -2009,8 +2033,6 @@ function mergeConfigFiles(inputConfigModel, callback) {
      * @param cb            - Callback function (error)
      */
     function mergeFields(cb) {
-        console.log('Merge fields init.');
-
         inputConfigModel.models.forEach(function (modelValues, indexModel) {
             Object.keys(modelValues.fields).forEach(function (keys) {
                 inputConfigModel.models[indexModel].fields[keys] = xtend(defaultField, inputConfigModel.models[indexModel].fields[keys]);
@@ -2026,8 +2048,6 @@ function mergeConfigFiles(inputConfigModel, callback) {
      * @param cb            - Callback function (error)
      */
     function mergeConfig(cb) {
-        console.log('Merge config init.');
-
         inputConfigModel = xtend(defaultConfig, inputConfigModel);
         mergedConfig = inputConfigModel;
         mergedConfigEx.mergedConfig = inputConfigModel;

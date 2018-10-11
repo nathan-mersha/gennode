@@ -18,7 +18,6 @@ let
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.packageJSON         = function packageJSON(){
-    console.log(`Generating package.json replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__version__/g, /__author__/g, /__license__/g, /__repoURL__/g],
@@ -32,7 +31,6 @@ exports.packageJSON         = function packageJSON(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.environment         = function environment(){
-    console.log(`Generating package.json replacement files.`);
 
     return {
         from : [/__runningMode__/g, /__port__/g, /__mongodbURL__/g, /__elementInPage__/g, /__collectionReturnSize__/g, /__reverseProxy__/g, /__elasticSearch__/g],
@@ -53,7 +51,6 @@ exports.environment         = function environment(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.errorCodes          = function errorCodes(){
-    console.log(`Generating errorCodes replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__license__/g, /__copyright__/g],
@@ -67,7 +64,6 @@ exports.errorCodes          = function errorCodes(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.config              = function config(){
-    console.log(`Generating config replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -81,7 +77,6 @@ exports.config              = function config(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.initializer         = function initializer(){
-    console.log(`Generating initializer replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -95,7 +90,6 @@ exports.initializer         = function initializer(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.constantIndex            = function libIndex(){
-    console.log(`Generating lib replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -109,7 +103,6 @@ exports.constantIndex            = function libIndex(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.helperLibIndex      = function libIndex(){
-    console.log(`Generating lib replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -123,7 +116,6 @@ exports.helperLibIndex      = function libIndex(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.constant            = function constant(){
-    console.log(`Generating constant replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -137,7 +129,6 @@ exports.constant            = function constant(){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.app                 = function app(){
-    console.log(`Generating app replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__abortIfFail__/g, /__baseURL__/g],
@@ -171,7 +162,6 @@ exports.multipleSeqRep      = function multipleSeqRep(mark, replaceTo, tabs = 2,
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.model               = function model(modelName, elementsInPagination){
-    console.log(`Generating model replacement files.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__elementsViewedInPagination__/g],
@@ -186,7 +176,6 @@ exports.model               = function model(modelName, elementsInPagination){
  * @param privateFields             - Private fields to hide
  */
 exports.dal                 = function (modelName, privateFields){
-    console.log(`Generating dal replacer for model ${modelName}`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__privateFields__/g],
@@ -200,7 +189,6 @@ exports.dal                 = function (modelName, privateFields){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*,*,*]}}
  */
 exports.helperAPI           = function (){
-    console.log(`Generating helper api replacer.`);
 
     let certificateName = mc.mergedConfig.certificate.root !== null && mc.mergedConfig.certificate.clientKey !== null && mc.mergedConfig.certificate.client !== null ? path.basename(mc.mergedConfig.certificate) : "";
     return {
@@ -215,7 +203,6 @@ exports.helperAPI           = function (){
  * @return {{from: [RegExp,RegExp,RegExp], to: [*,*,*]}}
  */
 exports.controllerHelper    = function (){
-    console.log(`Generating controller helper replacer.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -233,7 +220,6 @@ exports.controllerHelper    = function (){
  * @return {{from: [RegExp,RegExp,RegExp], to: [*,*,*]}}
  */
 exports.controller          = function (modelName, requiredFieldsOnCreate, validQuery, validUpdateData){
-    console.log(`Generating controller replacer.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__requiredFieldsOnCreate__/g, /__validQuery__/g, /__validUpdateData__/g],
@@ -247,7 +233,6 @@ exports.controller          = function (modelName, requiredFieldsOnCreate, valid
  * @return {{from: [RegExp,RegExp,RegExp], to: [*,*,*]}}
  */
 exports.routerIndex         = function (){
-    console.log(`Generating router index replacer.`);
 
     return {
         from : [/__serviceName__/g, /__author__/g, /__copyright__/g],
@@ -262,7 +247,6 @@ exports.routerIndex         = function (){
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.route               = function (modelName) {
-    console.log(`Generating route replacer.`);
 
     return {
         from : [
@@ -294,7 +278,6 @@ exports.route               = function (modelName) {
  * @return {{from: [RegExp,RegExp,RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*,*,*]}}
  */
 exports.dockerCompose       = function () {
-    console.log(`Generating docker compose replacer.`);
 
     return {
         from : [/__serviceName__/g, /__port__/g, /__runningMode__/g, /__reverseProxy__/g, /__collectionReturnSize__/g, /__elasticSearchUrl__/g],
@@ -309,7 +292,6 @@ exports.dockerCompose       = function () {
  * @return {{from: [RegExp,RegExp], to: [*,*]}}
  */
 exports.dockerFile          = function () {
-    console.log(`Generating Docker file replacer. `);
 
     return {
         from : [/__author__/g, /__port__/g],
@@ -323,7 +305,6 @@ exports.dockerFile          = function () {
  * @return {{from: Array, to: Array}}
  */
 exports.dockerIgnore        = function () {
-    console.log('Generating docker ignore file replacer.');
 
     return {
         from : [],
@@ -337,7 +318,6 @@ exports.dockerIgnore        = function () {
  * @return {{from: Array, to: Array}}
  */
 exports.jenkinsFile        = function () {
-    console.log('Generating jenkins file replacer.');
 
     return {
         from : [],
@@ -346,7 +326,6 @@ exports.jenkinsFile        = function () {
 };
 
 exports.readMe              = function () {
-    console.log('Generating read me file replacer.');
 
     return {
         from : [
@@ -386,7 +365,6 @@ exports.readMe              = function () {
  * @returns {{from: RegExp[], to: *[]}}
  */
 exports.test                = function (modelName, modelPublicFields, modelPrivateFields, ) {
-    console.log('Generating test file replacer.');
 
     return {
         from : [
@@ -413,7 +391,6 @@ exports.test                = function (modelName, modelPublicFields, modelPriva
  * @description                     - Test data outer holder generator
  */
 exports.testOuter        = function () {
-    console.log(`Generating dummy test data.`);
 
     return {
         from : [
@@ -435,7 +412,6 @@ exports.testOuter        = function () {
  * @return {{from: [RegExp,RegExp,RegExp], to: [*,*,*]}}
  */
 exports.dummyDataOuter           = function () {
-    console.log(`Generating dummy data outer`);
 
     return {
         from : [
@@ -458,7 +434,6 @@ exports.dummyDataOuter           = function () {
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.testSuite               = function (modelName) {
-    console.log(`Generating test suite files.`);
 
     return {
         from : [
@@ -482,7 +457,6 @@ exports.testSuite               = function (modelName) {
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.suiteIndex               = function () {
-    console.log(`Generating test suite files.`);
 
     return {
         from : [
@@ -504,7 +478,6 @@ exports.suiteIndex               = function () {
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
 exports.validators               = function () {
-    console.log(`Generating test suite files.`);
 
     return {
         from : [
@@ -526,8 +499,6 @@ exports.validators               = function () {
  * @description                     - Url generator module
  */
 exports.urlGeneratorOuter        = function () {
-    console.log(`Generating url generator file.`);
-
     return {
         from : [
             /__serviceName__/g,
@@ -549,8 +520,6 @@ exports.urlGeneratorOuter        = function () {
  * @description                     - Url generator module
  */
 exports.apidoc        = function () {
-    console.log(`Generating url generator file.`);
-
     return {
         from : [
             /__serviceName__/g,
@@ -576,8 +545,6 @@ exports.apidoc        = function () {
  * @description                     - Documentation cleanup
  */
 exports.documentationCleanUp        = function () {
-    console.log(`Generating dummy test data.`);
-
     return {
         from : [
             /End inserting sample body example descriptor here POST/g,
@@ -599,8 +566,6 @@ exports.documentationCleanUp        = function () {
  * @description                     - Generates docker compose file for nginx
  */
 exports.dockerComposeNginx        = function () {
-    console.log(`Generating docker compose for nginx.`);
-
     return {
         from : [
             /__serviceName__/g
@@ -616,8 +581,6 @@ exports.dockerComposeNginx        = function () {
  * @description                     - Generates docker file for nginx
  */
 exports.dockerFileNginx        = function () {
-    console.log(`Generating docker file for nginx.`);
-
     return {
         from : [
             /__author__/g
@@ -633,8 +596,6 @@ exports.dockerFileNginx        = function () {
  * @description                     - Generates jenkins file for nginx
  */
 exports.jenkinsNginx        = function () {
-    console.log(`Generating jenkins file for nginx`);
-
     return {
         from : [
             /__serviceName__/g
@@ -651,8 +612,6 @@ exports.jenkinsNginx        = function () {
  * @description                     - Generates nginx config file
  */
 exports.nginxConfig        = function (https = false) {
-    console.log(`Generating nginx config file`);
-
     if(https) {
         return {
             from : [
@@ -699,8 +658,6 @@ exports.nginxConfig        = function (https = false) {
  * @description                     - Generates jenkins file for nginx
  */
 exports.genNodeConfig        = function (author, serviceName, configExport) {
-    console.log(`Generating jenkins file for nginx`);
-
     return {
         from : [
             /__author__/g,
@@ -720,13 +677,55 @@ exports.genNodeConfig        = function (author, serviceName, configExport) {
  * @description                     - Hero academia gennode config file replace
  * @return {{from: Array, to: Array}}
  */
-exports.heroAcademia    = function () {
+exports.heroAcademia        = function () {
     return {
         from : [
             /__copyright__/g
         ],
         to : [
             new Date().getFullYear().toString()
+        ]
+    }
+};
+
+/**
+ * @name                            - Model cleanup
+ * @description                     - Cleans up type values
+ * @return {{from: [RegExp,RegExp,RegExp,RegExp,RegExp,RegExp,RegExp,RegExp,RegExp,RegExp,RegExp], to: [string,string,string,string,string,string,string,string,string,string,string]}}
+ */
+exports.modelCleanUp        = function () {
+    return {
+        from : [
+            /"String"/g,
+            /"Number"/g,
+            /"Boolean"/g,
+            /"Bool"/g,
+            /"Array"/g,
+            /"Buffer"/g,
+            /"Date"/g,
+            /"ObjectId"/g,
+            /"Oid"/g,
+            /"Map"/g,
+            /"Mixed"/g,
+            /"type"/g,
+            /"ref"/g,
+            /"es_indexed"/g
+        ],
+        to : [
+            "String",
+            "Number",
+            "Boolean",
+            "Bool",
+            "Array",
+            "Buffer",
+            "Date",
+            "Schema.Types.ObjectId",
+            "Schema.Types.ObjectId",
+            "Map",
+            "Mixed",
+            "type",
+            "ref",
+            "es_indexed"
         ]
     }
 };

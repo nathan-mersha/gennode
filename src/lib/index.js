@@ -24,14 +24,12 @@ let
  * @param callback      - Callback function (error)
  */
 exports.generator    = function replacer(template, replaceValues, fileName, savePath, callback) {
-    console.log("Replacer init.");
 
     async.waterfall([
         copyFile,
         renameFile,
         replacePlaceHolders
     ],function () {
-        console.log('Place holder completed.');
         callback(null);
     });
 
@@ -41,11 +39,6 @@ exports.generator    = function replacer(template, replaceValues, fileName, save
      * @param cb            - Callback function (error)
      */
     function copyFile(cb) {
-        console.log('Copy file init.');
-
-        console.log('Template : ' + template);
-        console.log('Save path : ' + savePath);
-
         //todo this is where all the wrong shit is happening
         shelljs.cp('-R', template, savePath);
         cb(null);
@@ -57,7 +50,6 @@ exports.generator    = function replacer(template, replaceValues, fileName, save
      * @param cb            - Callback function (error)
      */
     function renameFile(cb) {
-        console.log('Rename file init.');
 
         let generatedFile = `${savePath}/${fileName}`;
         fs.rename(`${savePath}/${path.basename(template)}`,generatedFile ,function () {
@@ -72,7 +64,6 @@ exports.generator    = function replacer(template, replaceValues, fileName, save
      * @param cb                - Callback function (error)
      */
     function replacePlaceHolders(generatedFilePath, cb) {
-        console.log('Replace place holders init.');
 
         if(replaceValues !== null) {
             replaceValues.files = generatedFilePath;
