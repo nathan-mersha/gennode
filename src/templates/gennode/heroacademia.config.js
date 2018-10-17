@@ -125,6 +125,7 @@ module.exports = {
 
     test : true,
     docker : true,
+    postman : true,
     jenkins : true,
     enableProxy : true,
     readMe : true,

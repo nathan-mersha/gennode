@@ -13,6 +13,7 @@ let
     program = require('commander'),
     inquirer  = require('inquirer'),
     defaultValues = require('./src/config'),
+    npmPackage  = require('./package.json'),
     genNode = require('./main');
 
 const prefixMessage = ">";
@@ -239,7 +240,7 @@ let questions = [
 ];
 
 program
-    .version('0.0.1')
+    .version(npmPackage.version)
     .description('Simple Nodejs server generator module.');
 
 program

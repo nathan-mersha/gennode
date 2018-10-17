@@ -23,6 +23,7 @@ let
     constants   = require('./lib/constant'),
     errorCodes  = constants.errorCodes,
     constant    = constants.constant,
+    dbCFailure  = 0,
     initializer = require('./lib/middleware/initializer');
 
 /**
@@ -42,10 +43,13 @@ mongoose.connection.on('connected',function () {
  * @description     - Handling mongoose db connection error.
  */
 mongoose.connection.on('error',function (err) {
+    dbCFailure++;
     debug(`Error While Connecting to Mongodb at : ${config.MONGODB_URL}`);
     debug(`Connection Error is : ${err.toString()}`);
-    debug(`Retrying Connection ...`);
-    mongoose.connect(config.MONGODB_URL);
+    if(dbCFailure < 10) {
+            debug(`Retrying Connection ...`);
+            mongoose.connect(config.MONGODB_URL);
+    }
 });
 
 /**
@@ -104,11 +108,16 @@ route(app);
  * @description     - Request handler for unmatched endpoints.
  */
 app.use(function (req, res, next) {
-    debug("Un-matched endpoint");
+    if(req.url === "/") {
+        res.redirect('__host__:__port____baseURL__/apidoc');
+        res.status(200);
+    }else{
+        debug("Un-matched endpoint");
 
-    res.status(400);
-    res.json(errorCodes.SEC.UN_MATCHED_ENDPOINT);
-    next();
+        res.status(400);
+        res.json(errorCodes.SEC.UN_MATCHED_ENDPOINT);
+        next();
+    }
 });
 
 /**

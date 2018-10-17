@@ -29,7 +29,8 @@
     "mongoosastic": "^4.3.0",
     "mongoose": "5.3.1",
     "mongoose-paginate": "^5.0.3",
-    "request": "2.88.0"
+    "request": "2.88.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
