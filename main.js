@@ -1791,8 +1791,91 @@ module.exports = {
          */
         function generatePostManCollectionFile  (callback) {
             console.log(`${log} 35. Generate post man collection file init.`);
-            console.log('Skipping...');
-            callback(null);
+
+            if(mergedConfig.postman) {
+                async.waterfall([
+                    generatePostManCollection,
+                    insertRequestItems,
+                    cleanUpMark
+                ],function () {
+                    console.log(`${iLog} Generating post man collection completed.`);
+                    callback(null);
+                });
+
+                function generatePostManCollection(cb) {
+                    console.log(`${iLog} Generate postman collection file.`);
+                    lib.generator(path.resolve(__dirname, './src/templates/documentation/postman_collection'), replaceValues.postManCollection(), `${mergedConfig.serviceName}.postman_collection.json`, '.', cb);
+                }
+
+                function insertRequestItems(cb) {
+                    console.log(`${iLog} Insert request items init.`);
+
+                    let
+                        templatePath        = `./${mergedConfig.serviceName}.postman_collection.json`,
+                        fileName            = `${mergedConfig.serviceName}.postman_collection.json`,
+                        parentPath          = '.',
+                        replacementValues   = function () {
+                            let requestItem = [];
+                            let models  = mergedConfig.models;
+                            models.forEach(function (model, index) {
+                                innerTemplate.documentation.dummyData(model, function (err, dummyDocData) {
+                                    if(model.options.enableRoute) {
+                                        let item = innerTemplate.postMan(
+                                            model.options.name,
+                                            JSON.stringify(dummyDocData.postBodyExample[0]),
+                                            JSON.stringify(dummyDocData.putBodyExample[0]),
+                                            mergedConfig.environment.REVERSE_PROXY,
+                                            mergedConfig.environment.PORT,
+                                            mergedConfig.baseURL.replace("/", ""),
+                                            mergedConfig.environment.REVERSE_PROXY.replace("http://", "").replace("https://", ""),
+                                            JSON.stringify(dummyDocData.postSuccessSample[0]), // Create
+                                            `
+                                                {
+                                                    "docs": [
+                                            
+                                                       ${JSON.stringify(dummyDocData.getPaginationResponse[0])}
+                                                    ],
+                                                    "total": 12,
+                                                    "limit": 3,
+                                                    "offset": 0
+                                                }
+                                            `,
+                                            JSON.stringify(
+                                                {
+                                                    n : "1",
+                                                    nModified : "1",
+                                                    ok : "1"
+                                                }
+                                            ), // put
+                                            JSON.stringify({
+                                                n : "1",
+                                                ok : "1"
+                                            })
+                                        );
+                                        if(index !== models.length - 1){
+                                            item = item.concat(',');
+                                        }
+                                        requestItem.push(item.toString());
+                                    }
+                                });
+
+
+                            });
+                            return requestItem;
+                        },
+                        mark                = `End inserting request items here`,
+                        tab                 = 0;
+
+                    replaceMultipleValuesByMark(templatePath, fileName, parentPath, replacementValues(), mark, tab, true, cb);
+                }
+
+                function cleanUpMark(cb) {
+                    console.log(`${iLog} Cleaning up marks on postman collection`);
+                    lib.generator(`./${mergedConfig.serviceName}.postman_collection.json`, replaceValues.postManCollectionCleanUp(), `${mergedConfig.serviceName}.postman_collection.json`, '.', cb);
+
+                }
+            }else{callback(null);}
+
         }
 
         /**

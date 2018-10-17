@@ -108,11 +108,16 @@ route(app);
  * @description     - Request handler for unmatched endpoints.
  */
 app.use(function (req, res, next) {
-    debug("Un-matched endpoint");
+    if(req.url === "/") {
+        res.redirect('__host__:__port____baseURL__/apidoc');
+        res.status(200);
+    }else{
+        debug("Un-matched endpoint");
 
-    res.status(400);
-    res.json(errorCodes.SEC.UN_MATCHED_ENDPOINT);
-    next();
+        res.status(400);
+        res.json(errorCodes.SEC.UN_MATCHED_ENDPOINT);
+        next();
+    }
 });
 
 /**

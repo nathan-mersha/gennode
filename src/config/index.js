@@ -59,6 +59,7 @@ module.exports = {
     nginx                   : true,
     docker                  : true,
     jenkins                 : true,
+    postman                 : true,
     enableProxy             : true,
     test                    : true,
     documentation           : true,

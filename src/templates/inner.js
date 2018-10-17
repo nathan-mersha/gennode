@@ -587,6 +587,141 @@ module.exports = {
                 callback(null, paginatedValues);
             }
         }
+    },
+    postMan : function (modelName, createDataSample, updateDataSample, proxy, port, baseURL, host, createResponseSample, getResponseSample, putResponseSample, deleteResponseSample) {
+        return `
+        {
+			"name": "${modelName}",
+			"description": "${modelName} CRUD collection",
+			"item": [
+				{
+      "name": "Create ${modelName}",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ${createDataSample}
+        },
+        "url": {
+          "raw": "http://${proxy}:${port}/${baseURL}/${modelName}",
+          "protocol": "http",
+          "host": [
+            "${host}"
+          ],
+          "port": "${port}",
+          "path": [
+            "${baseURL}",
+            "${modelName}"
+          ]
+        },
+        "description": "Create ${modelName}"
+      },
+      "response": []
+    },
+    {
+      "name": "Get ${modelName}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://${proxy}:${port}/${baseURL}/${modelName}",
+          "protocol": "http",
+          "host": [
+            "${host}"
+          ],
+          "port": "${port}",
+          "path": [
+            "${baseURL}",
+            "${modelName}"
+          ]
+        },
+        "description": "Get ${modelName}"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete ${modelName}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://${proxy}:${port}/${baseURL}/${modelName}?_id=5bc206d3048c9e1527797073",
+          "protocol": "http",
+          "host": [
+            "${host}"
+          ],
+          "port": "${port}",
+          "path": [
+            "${baseURL}",
+            "${modelName}"
+          ],
+          "query": [
+            {
+              "key": "_id",
+              "value": "5bc206d3048c9e1527797073"
+            }
+          ]
+        },
+        "description": "Delete ${modelName}"
+      },
+      "response": []
+    },
+    {
+      "name": "Update ${modelName}",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ${updateDataSample}
+        },
+        "url": {
+          "raw": "http://${proxy}:${port}/${baseURL}/${modelName}?_id=5bc20776048c9e1527797077",
+          "protocol": "http",
+          "host": [
+            "${host}"
+          ],
+          "port": "${port}",
+          "path": [
+            "${baseURL}",
+            "${modelName}"
+          ],
+          "query": [
+            {
+              "key": "_id",
+              "value": "5bc20776048c9e1527797077"
+            }
+          ]
+        },
+        "description": "Update ${modelName}"
+      },
+      "response": []
+    }]
+}`
     }
-};
+}
+;
 

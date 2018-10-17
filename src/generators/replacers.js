@@ -131,8 +131,8 @@ exports.constant            = function constant(){
 exports.app                 = function app(){
 
     return {
-        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__abortIfFail__/g, /__baseURL__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, mc.mergedConfig.dependantServices.abortIfFail.toString(), mc.mergedConfig.baseURL]
+        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__abortIfFail__/g, /__baseURL__/g, /__host__/g, /__port__/g],
+        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, mc.mergedConfig.dependantServices.abortIfFail.toString(), mc.mergedConfig.baseURL, mc.mergedConfig.environment.REVERSE_PROXY,mc.mergedConfig.environment.PORT]
     };
 };
 
@@ -727,5 +727,32 @@ exports.modelCleanUp        = function () {
             "ref",
             "es_indexed"
         ]
+    }
+};
+
+/**
+ * @name                - Post man collection
+ * @description         - Replaces initial postman collection template file
+ * @return {{from: [RegExp,RegExp], to: [*,*]}}
+ */
+exports.postManCollection    = function () {
+    return {
+        from : [
+            /__serverName__/g,
+            /__serverDescription__/g
+        ],
+        to : [
+            mc.mergedConfig.serviceName,
+            mc.mergedConfig.serviceDescription
+        ]
+    }
+};
+
+exports.postManCollectionCleanUp    = function () {
+    return {
+        from : [
+            /End inserting request items here/g,
+        ],
+        to  : [""]
     }
 };
