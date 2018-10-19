@@ -1802,11 +1802,19 @@ module.exports = {
                     callback(null);
                 });
 
+                /**
+                 * @name                - Generate postman collection
+                 * @param cb            - Callback function (error)
+                 */
                 function generatePostManCollection(cb) {
                     console.log(`${iLog} Generate postman collection file.`);
                     lib.generator(path.resolve(__dirname, './src/templates/documentation/postman_collection'), replaceValues.postManCollection(), `${mergedConfig.serviceName}.postman_collection.json`, '.', cb);
                 }
 
+                /**
+                 * @name                - Insert request items
+                 * @param cb            - Callback function (error)
+                 */
                 function insertRequestItems(cb) {
                     console.log(`${iLog} Insert request items init.`);
 
@@ -1869,6 +1877,10 @@ module.exports = {
                     replaceMultipleValuesByMark(templatePath, fileName, parentPath, replacementValues(), mark, tab, true, cb);
                 }
 
+                /**
+                 * @name                - Cleanup mark
+                 * @param cb            - Callback function (error)
+                 */
                 function cleanUpMark(cb) {
                     console.log(`${iLog} Cleaning up marks on postman collection`);
                     lib.generator(`./${mergedConfig.serviceName}.postman_collection.json`, replaceValues.postManCollectionCleanUp(), `${mergedConfig.serviceName}.postman_collection.json`, '.', cb);

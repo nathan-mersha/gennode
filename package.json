@@ -42,9 +42,6 @@
     "underscore": "^1.9.1",
     "xtend": "^4.0.1"
   },
-  "os": [
-    "linux"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nathan-mersha/gennode.git"
