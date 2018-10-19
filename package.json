@@ -39,6 +39,7 @@
     "mongoose": "^5.3.1",
     "replace-in-file": "^3.4.2",
     "shelljs": "^0.8.2",
+    "snake-case": "^2.1.0",
     "underscore": "^1.9.1",
     "xtend": "^4.0.1"
   },

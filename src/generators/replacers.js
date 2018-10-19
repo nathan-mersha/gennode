@@ -8,7 +8,8 @@
  */
 
 let
-    mc      = require('../mergedConfig'),
+    mc = require('../mergedConfig'),
+    snakeCase = require('snake-case'),
     path    = require('path');
 
 
@@ -281,7 +282,7 @@ exports.dockerCompose       = function () {
 
     return {
         from : [/__serviceName__/g, /__port__/g, /__runningMode__/g, /__reverseProxy__/g, /__collectionReturnSize__/g, /__elasticSearchUrl__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.environment.PORT, mc.mergedConfig.environment.MODE,
+        to: [snakeCase(mc.mergedConfig.serviceName), mc.mergedConfig.environment.PORT, mc.mergedConfig.environment.MODE,
             mc.mergedConfig.environment.REVERSE_PROXY, mc.mergedConfig.environment.COLLECTION_RETURN_SIZE, mc.mergedConfig.environment.ELASTIC_SEARCH_URL]
     };
 };
