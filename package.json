@@ -21,7 +21,8 @@
     "express-generator",
     "express",
     "nodejs-generator",
-    "node-generator"
+    "node-generator",
+    "microservice"
   ],
   "author": "Nathan Mersha",
   "licence": "ISC",
