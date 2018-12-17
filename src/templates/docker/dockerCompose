@@ -19,13 +19,13 @@ services:
         - COLLECTION_RETURN_SIZE=__collectionReturnSize__
         - ELASTIC_SEARCH_URL=__elasticSearchUrl__
       depends_on:
-         - __serviceName___db
+        - __serviceName___db
     # Defining __serviceName__ DB
     __serviceName___db:
        image: mongo:latest
        restart: always
        volumes:
-         - .:/var/lib/mongodb
+         - .:/data/db
 
   #################################################################################################################################
   #################################################################################################################################
