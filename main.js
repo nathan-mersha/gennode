@@ -596,7 +596,7 @@ module.exports = {
                  */
                 function replacePlaceHolders    (cb1)       {
                     console.log(`${iLog} Replacing place holders for model : ${model.options.name}`);
-                    lib.generator(path.resolve(__dirname, './src/templates/node/model/model'), replaceValues.model(model.options.name, generateElementsForPagination()), `${model.options.name}.js`, './model', cb1);
+                    lib.generator(path.resolve(__dirname, './src/templates/node/model/model'), replaceValues.model(model.options.name), `${model.options.name}.js`, './model', cb1);
                 }
 
                 /**
@@ -652,25 +652,6 @@ module.exports = {
                     console.log(`${iLog} Clean up type declaration : ${model.options.name}`);
                     lib.generator(path.resolve(__dirname, `./model/${model.options.name}`), replaceValues.modelCleanUp(), `${model.options.name}.js`, './model', cb1);
                 }
-
-                /**
-                 * @name                - Generate elements for pagination
-                 * @description         - Generates elements for pagination view for the current model on iteration
-                 * @return {string}     - Return elements view on pagination
-                 */
-                function generateElementsForPagination()    {
-                    let
-                        visibleElements = "",
-                        fieldsKey = Object.keys(model.fields);
-                    fieldsKey.forEach(function (fieldKey) {
-                        if(model.fields[fieldKey].visibleOnPagination && model.fields[fieldKey].publicVisibility) {
-                            visibleElements = visibleElements.concat(`${fieldKey} `);
-                        }
-                    });
-                    visibleElements = visibleElements.concat("firstModified lastModified"); // Default values to be visible on pagination call.
-                    return visibleElements;
-                }
-
             }
 
         }
@@ -803,10 +784,28 @@ module.exports = {
                     lib.generator(
                         path.resolve(
                             __dirname, './src/templates/node/controller/controller'),
-                            replaceValues.controller(model.options.name, controllerReplacements.getRequiredFieldsOnCreate(), controllerReplacements.getValidQuery(), controllerReplacements.getValidUpdateData()),
+                            replaceValues.controller(model.options.name, controllerReplacements.getRequiredFieldsOnCreate(), controllerReplacements.getValidQuery(), controllerReplacements.getValidUpdateData(), generateElementsForPagination()),
                             `${model.options.name}.js`,
                             './controller',
                             cb2);
+                }
+
+                /**
+                 * @name                - Generate elements for pagination
+                 * @description         - Generates elements for pagination view for the current model on iteration
+                 * @return {string}     - Return elements view on pagination
+                 */
+                function generateElementsForPagination()    {
+                    let
+                        visibleElements = "",
+                        fieldsKey = Object.keys(model.fields);
+                    fieldsKey.forEach(function (fieldKey) {
+                        if(model.fields[fieldKey].visibleOnPagination && model.fields[fieldKey].publicVisibility) {
+                            visibleElements = visibleElements.concat(`${fieldKey} `);
+                        }
+                    });
+                    visibleElements = visibleElements.concat("firstModified lastModified"); // Default values to be visible on pagination call.
+                    return visibleElements;
                 }
             }
 
