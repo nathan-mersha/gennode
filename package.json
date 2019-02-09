@@ -33,7 +33,7 @@
     "commander": "^2.17.1",
     "dummy-json": "^2.0.0",
     "fs-extra": "^7.0.0",
-    "inquirer": "^6.2.0",
+    "inquirer": "^6.2.2",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "mochawesome": "^3.0.3",
