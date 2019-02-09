@@ -8,7 +8,8 @@
  */
 
 let
-    mc      = require('../mergedConfig'),
+    mc = require('../mergedConfig'),
+    snakeCase = require('snake-case'),
     path    = require('path');
 
 
@@ -21,7 +22,7 @@ exports.packageJSON         = function packageJSON(){
 
     return {
         from : [/__serviceName__/g, /__version__/g, /__author__/g, /__license__/g, /__repoURL__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.version, mc.mergedConfig.author, mc.mergedConfig.licence, mc.mergedConfig.repoURL]
+        to: [snakeCase(mc.mergedConfig.serviceName), mc.mergedConfig.version, mc.mergedConfig.author, mc.mergedConfig.licence, mc.mergedConfig.repoURL]
     };
 };
 
@@ -158,14 +159,13 @@ exports.multipleSeqRep      = function multipleSeqRep(mark, replaceTo, tabs = 2,
  * @name                            - Model
  * @description                     - Replaces model file with provided model name
  * @param modelName                 - Model name
- * @param elementsInPagination      - Defines which elements in pagination
  * @return {{from: [RegExp,RegExp,RegExp,RegExp], to: [*,*,*,*]}}
  */
-exports.model               = function model(modelName, elementsInPagination){
+exports.model               = function model(modelName){
 
     return {
-        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__elementsViewedInPagination__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName, elementsInPagination]
+        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g],
+        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName]
     };
 };
 
@@ -217,13 +217,14 @@ exports.controllerHelper    = function (){
  * @param requiredFieldsOnCreate    - Required fields to create the data
  * @param validQuery                - Valid query to look on pagination call
  * @param validUpdateData           - Valid update data
+ * @param elementViewedInPagination - Element viewed in pagination
  * @return {{from: [RegExp,RegExp,RegExp], to: [*,*,*]}}
  */
-exports.controller          = function (modelName, requiredFieldsOnCreate, validQuery, validUpdateData){
+exports.controller          = function (modelName, requiredFieldsOnCreate, validQuery, validUpdateData, elementViewedInPagination){
 
     return {
-        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__requiredFieldsOnCreate__/g, /__validQuery__/g, /__validUpdateData__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName, requiredFieldsOnCreate, validQuery, validUpdateData]
+        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__requiredFieldsOnCreate__/g, /__validQuery__/g, /__validUpdateData__/g, /__elementsViewedInPagination__/g],
+        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName, requiredFieldsOnCreate, validQuery, validUpdateData, elementViewedInPagination]
     };
 };
 
@@ -281,7 +282,7 @@ exports.dockerCompose       = function () {
 
     return {
         from : [/__serviceName__/g, /__port__/g, /__runningMode__/g, /__reverseProxy__/g, /__collectionReturnSize__/g, /__elasticSearchUrl__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.environment.PORT, mc.mergedConfig.environment.MODE,
+        to: [snakeCase(mc.mergedConfig.serviceName), mc.mergedConfig.environment.PORT, mc.mergedConfig.environment.MODE,
             mc.mergedConfig.environment.REVERSE_PROXY, mc.mergedConfig.environment.COLLECTION_RETURN_SIZE, mc.mergedConfig.environment.ELASTIC_SEARCH_URL]
     };
 };

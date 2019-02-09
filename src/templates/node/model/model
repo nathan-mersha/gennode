@@ -22,12 +22,6 @@ let __modelName__ = new Schema({
     // Schema definition ends here
 });
 
-/*
- Defines which attributes to return in pagination
- */
-mongoosePaginate.paginate.options = {
-    select : "__elementsViewedInPagination__"
-};
 
 /*
  Adding plugins

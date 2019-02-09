@@ -1,6 +1,6 @@
 {
   "name": "gennode",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Simple NodeJs server generator",
   "preferGlobal": true,
   "bin": {
@@ -21,7 +21,8 @@
     "express-generator",
     "express",
     "nodejs-generator",
-    "node-generator"
+    "node-generator",
+    "microservice"
   ],
   "author": "Nathan Mersha",
   "licence": "ISC",
@@ -32,19 +33,17 @@
     "commander": "^2.17.1",
     "dummy-json": "^2.0.0",
     "fs-extra": "^7.0.0",
-    "inquirer": "^6.2.0",
+    "inquirer": "^6.2.2",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
     "mochawesome": "^3.0.3",
     "mongoose": "^5.3.1",
     "replace-in-file": "^3.4.2",
     "shelljs": "^0.8.2",
+    "snake-case": "^2.1.0",
     "underscore": "^1.9.1",
     "xtend": "^4.0.1"
   },
-  "os": [
-    "linux"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nathan-mersha/gennode.git"

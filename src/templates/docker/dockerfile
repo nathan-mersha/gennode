@@ -27,4 +27,4 @@ COPY . /usr/src/app
 EXPOSE __port__
 
 # initialize app
-CMD npm start
+CMD npm run start

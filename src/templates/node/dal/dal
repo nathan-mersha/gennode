@@ -104,3 +104,36 @@ exports.removeMany              = function removeMany(query,callback)           
     Model.deleteMany(query,callback);
 };
 
+/**
+ * @name                - Push to array
+ * @description         - Pushes elements to the targeted array
+ * @param query         - Query
+ * @param targetedArray - Targeted array
+ * @param elements      - Elements to push
+ * @param callback      - Callback function (error)
+ */
+exports.pushToArray             = function (query, targetedArray,elements,callback) {
+    Model.findOne(query,function (err, data) {
+        if(!data[targetedArray].includes(...elements)) {
+            data[targetedArray].push(...elements);
+        }
+        data.save();
+        callback(err,data);
+    });
+};
+
+/**
+ * @name                - Pull from array
+ * @description         - Pulls elements from the targeted array
+ * @param query         - Query
+ * @param targetedArray - Targeted array
+ * @param elements      - Elements to pull
+ * @param callback      - Callback function (error)
+ */
+exports.pullFromArray             = function (query, targetedArray,elements,callback) {
+    Model.findOne(query,function (err, data) {
+        data[targetedArray].pull(...elements);
+        data.save();
+        callback(err,data);
+    });
+};
