@@ -11,6 +11,7 @@ let
     fs                      = require('fs'),
     path                    = require('path'),
     debug                   = require('debug')('__serviceName__/lib/helper/api/index'),
+    _request                = require('request'),
     async                   = require('async');
 
 //    cert                    = fs.readFileSync(path.join(__dirname,'./cert/__certificateName__'),'utf8'); // Root certificate
@@ -83,7 +84,7 @@ exports.request = function request(url, method, body, token, callback){
     debug("Request init.");
 
     let options = authOption(method, body, token);
-    request(url,options,function (err,res,body) {
+    _request(url,options,function (err,res,body) {
         debug(`Response : ${JSON.stringify(body)}`);
         if(err){
             debug(`Error is : ${err}`);
