@@ -63,6 +63,16 @@ exports.getAllCollection        = function getAllCollection(query, callback)    
 };
 
 /**
+ * @name                - Count
+ * @description         - Count documents based on query
+ * @param query         - Query
+ * @param callback      - Callback function (error,count)
+ */
+exports.count = function (query, callback) {
+    Model.countDocuments(query,callback);
+};
+
+/**
  * @name                - Update
  * @description         - Finds one __modelName__ that matches query and updates
  * @param query         - Query
