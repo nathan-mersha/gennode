@@ -12,23 +12,25 @@ Gen node is available on npm, type:
 and install it globally, now you can use it from the command line.
 
 ### Philosopy
-Following the trendy naming paradigm of __* as *__ , here comes another one __Server as a configuration__.
-So what is **SAAC** about, well a very simple **CRUD** sever has a set of properties that can be described in a simple configuration file.
+Following the trendy naming paradigm of __* aa *__ , here comes another one __Server as a configuration__.
+So what is **SAAC** about, well a very simple **CRUD** server has a set of properties that can be described in a simple configuration file.
 This properties could be one of the ones described below. This information is almost always found in the
 documentation accompanying the server. However there is an obvious limitation for documentations as such,
-with good reason, that is one can read the in's and out's of the server, but one can't recreate it directly
+and with good reasoning. That is one can read the in's and out's of the server, but one can't recreate it directly
 from the documentation (say if one wishes to spin up a new server with minor modifications to the first.)
-The main purpose of this module is to aid the developer to spin up a new **REST CRUD** project in less than a minute with all the durgeroies finished.
+The main purpose of this module is to aid the developer to spin up a new **REST CRUD** project in less than a minute with all the durgeroies completed.
 
 **What are the durgeroies I speak of?**
 
 I have worked on many microservice oriented projects, and each project begins with a setup of a proxy, authentication
 service and user service. After am done with that I'll have to begin with **Server A**. Now **Server A** has a specified
 models, running ports etc. And identify which fields in the models are required upon creation, which can be used to query,
-which can be updatable. And after am done with that do the dal, then the **CRUD** controllers and route. Then hook to proxy.
+which can be updatable. And after am done with that, do the dal, then the **CRUD** controllers and route. Then hook to proxy.
 If am using https between my services add the root certificate to my requester module, Define error codes, some constants
 (running mode, user levels etc...) Then setup my docker config, then pipeline code, then test the godamn thing, with nice reports.
-Then after am done with that write documentation. This is durgery i speak of, and i have not even began the real work yet
+After am done with that write documentation.
+
+This is durgery i speak of, and i have not even began the real work yet
 (the functionality that is unique to **Server A**) This setup takes me a good half day.This used to be fun on my early days
 of NodeJS (since it's part of the learning process), but now it's one of those things i trully hate doing. So if all project setups
 could be done with some smart global replacement by using templates, why not?
@@ -73,8 +75,17 @@ point to the container itself.
 >
 > *--output, -o* (Required)    :  Output path where the server files will be generated in.
 
+
 ### Configuration
 *The gennode configuration file is a simple javascript file exporting an object. Default name **gennode.config.js***
+
+### Note
+> On some debian platforms there seems to be a problem while installing dependencies, generating apidoc and running test. So after you generated all the files run the following
+> commands inside the root folder of the generated code in order.
+> `$ npm install`
+> `$ npm run apidoc`
+> `$ npm run test`
+> This will insure all of the files are generated.
 
 #### Main
 > Main configuration field options.
