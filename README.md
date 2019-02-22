@@ -82,8 +82,11 @@ point to the container itself.
 ### Note
 > On some debian platforms there seems to be a problem while installing dependencies, generating apidoc and running test. So after you generated all the files run the following
 > commands inside the root folder of the generated code in order.
+
 > `$ npm install`
+
 > `$ npm run apidoc`
+
 > `$ npm run test`
 > This will insure all of the files are generated.
 
