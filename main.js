@@ -784,7 +784,7 @@ module.exports = {
                     lib.generator(
                         path.resolve(
                             __dirname, './src/templates/node/controller/controller'),
-                            replaceValues.controller(model.options.name, controllerReplacements.getRequiredFieldsOnCreate(), controllerReplacements.getValidQuery(), controllerReplacements.getValidUpdateData(), generateElementsForPagination()),
+                            replaceValues.controller(model.options.name, controllerReplacements.getRequiredFieldsOnCreate(), controllerReplacements.getValidQuery(), controllerReplacements.getValidUpdateData(), generateElementsForPagination(), generateElkLogger()),
                             `${model.options.name}.js`,
                             './controller',
                             cb2);
@@ -806,6 +806,34 @@ module.exports = {
                     });
                     visibleElements = visibleElements.concat("firstModified lastModified"); // Default values to be visible on pagination call.
                     return visibleElements;
+                }
+                
+                
+                function generateElkLogger() {
+                    if(mergedConfig.elkLogger){
+                        return `
+let 
+    bunyan                  = require('bunyan'),
+    bunyantcp               = require('bunyan-logstash-tcp'),
+    log = bunyan.createLogger({
+        name: 'Agent Service',
+        streams: [{
+            level: 'debug',
+            stream: process.stdout
+        },{
+            level: 'debug',
+            type: "raw",
+            stream: bunyantcp.createStream({
+                host: config.REVERSE_PROXY,
+                port: config.LOG_STASH_PORT
+            })
+        }],
+        level: 'debug'
+    });
+                        `
+                    }else{
+                        return "";
+                    }
                 }
             }
 
@@ -2155,3 +2183,5 @@ function mergeConfigFiles(inputConfigModel, callback) {
     }
 
 }
+
+

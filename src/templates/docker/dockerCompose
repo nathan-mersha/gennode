@@ -18,6 +18,7 @@ services:
         - REVERSE_PROXY=__reverseProxy__
         - COLLECTION_RETURN_SIZE=__collectionReturnSize__
         - ELASTIC_SEARCH_URL=__elasticSearchUrl__
+        - LOG_STASH_PORT=__logStashPort__
       depends_on:
         - __serviceName___db
     # Defining __serviceName__ DB

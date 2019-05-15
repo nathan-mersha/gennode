@@ -5,4 +5,5 @@ ELEMENT_IN_PAGE=__elementInPage__
 COLLECTION_RETURN_SIZE=__collectionReturnSize__
 REVERSE_PROXY=__reverseProxy__
 ELASTIC_SEARCH_URL=__elasticSearch__
+LOG_STASH_PORT=__logStashPort__
 DEBUG=*

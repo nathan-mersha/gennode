@@ -20,6 +20,9 @@ let
     util                    = require('util'),
     async                   = require('async');
 
+// Elk stack logger
+__elkLoggerSetup__
+
 /**
  * @name                - Create
  * @description         - Creates __modelName__ data

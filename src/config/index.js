@@ -32,7 +32,8 @@ module.exports = {
         REVERSE_PROXY           : "http://localhost",
         COLLECTION_RETURN_SIZE  : "24",
         ELEMENT_IN_PAGE         : "12",
-        ELASTIC_SEARCH_URL      : "http://localhost:9200"
+        ELASTIC_SEARCH_URL      : "http://localhost:9200",
+        LOG_STASH_PORT          : 5000
     },
 
     // Defines authentication header key and type for api requests
@@ -60,6 +61,7 @@ module.exports = {
     docker                  : true,
     jenkins                 : true,
     postman                 : true,
+    elkLogger               : false,
     enableProxy             : true,
     test                    : true,
     documentation           : true,

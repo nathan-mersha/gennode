@@ -13,6 +13,8 @@
     "apidoc": "^0.17.5",
     "async": "2.6.1",
     "body-parser": "~1.15.2",
+    "bunyan": "^1.8.12",
+    "bunyan-logstash-tcp": "^1.0.0",
     "cors": "^2.8.3",
     "debug": "~2.2.0",
     "dotenv": "6.0.0",

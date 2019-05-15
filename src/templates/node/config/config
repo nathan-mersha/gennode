@@ -20,5 +20,6 @@ module.exports = {
     COLLECTION_RETURN_SIZE          : Number(process.env.COLLECTION_RETURN_SIZE),
     REVERSE_PROXY                   : process.env.REVERSE_PROXY,
     ELASTIC_SEARCH_URL              : process.env.ELASTIC_SEARCH_URL,
+    LOG_STASH_PORT                  : process.env.LOG_STASH_PORT,
     SERVICE_ID                      : process.env.SERVICE_ID,
 };

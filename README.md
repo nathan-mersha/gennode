@@ -118,6 +118,7 @@ point to the container itself.
 |docker                 |Tests docker files for the server.|true|Boolean|
 |jenkins                |Generates CI pipeline for the server.|true|Boolean|
 |postman                |Generates postman collection file|true|Boolean|
+|elkLogger              |Inserts elk stack logger using the bunyan lib|false|Boolean|
 |enableProxy            |Generate [Nginx](https://www.nginx.com/ "Nginx") configuraiton file|true|Boolean|
 |readMe                 |Generates readme file for the server.|true|Boolean|
 |documentation          |Generates documentation powered by [ApiDoc](https://www.npmjs.com/package/apidoc "ApiDoc")|true|Boolean|
@@ -161,7 +162,8 @@ point to the container itself.
 |COLLECTION_RETURN_SIZE |Collection return size|24|Number|
 |ELEMENT_IN_PAGE        |Elements in pagination return default value|12|Number|
 |ELASTIC_SEARCH_URL     |Elastic search endpint|http://localhost:9200|String|
-                                                                                                                                                                    
+|LOG_STASH_PORT         |Log stash port|5000|Number|
+
 **Note** You can add other environment variables here too.
 
 #### <a name="model">Model</a>
@@ -335,6 +337,7 @@ at runtime) So avoid using similar names as such.
         test : true,
         docker : true,
         jenkins : true,
+        elkLogger : true,
         enableProxy : true,
         readMe : true,
         documentation : true,

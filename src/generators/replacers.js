@@ -34,7 +34,7 @@ exports.packageJSON         = function packageJSON(){
 exports.environment         = function environment(){
 
     return {
-        from : [/__runningMode__/g, /__port__/g, /__mongodbURL__/g, /__elementInPage__/g, /__collectionReturnSize__/g, /__reverseProxy__/g, /__elasticSearch__/g],
+        from : [/__runningMode__/g, /__port__/g, /__mongodbURL__/g, /__elementInPage__/g, /__collectionReturnSize__/g, /__reverseProxy__/g, /__elasticSearch__/g, /__logStashPort__/g],
         to: [
             mc.mergedConfig.environment.MODE,
             mc.mergedConfig.environment.PORT,
@@ -42,7 +42,9 @@ exports.environment         = function environment(){
             mc.mergedConfig.environment.ELEMENT_IN_PAGE,
             mc.mergedConfig.environment.COLLECTION_RETURN_SIZE,
             mc.mergedConfig.environment.REVERSE_PROXY,
-            mc.mergedConfig.environment.ELASTIC_SEARCH_URL]
+            mc.mergedConfig.environment.ELASTIC_SEARCH_URL,
+            mc.mergedConfig.environment.LOG_STASH_PORT
+        ]
     };
 };
 
@@ -218,13 +220,14 @@ exports.controllerHelper    = function (){
  * @param validQuery                - Valid query to look on pagination call
  * @param validUpdateData           - Valid update data
  * @param elementViewedInPagination - Element viewed in pagination
+ * @param elkLoggerSetup            - Elk stack logger setup
  * @return {{from: [RegExp,RegExp,RegExp], to: [*,*,*]}}
  */
-exports.controller          = function (modelName, requiredFieldsOnCreate, validQuery, validUpdateData, elementViewedInPagination){
+exports.controller          = function (modelName, requiredFieldsOnCreate, validQuery, validUpdateData, elementViewedInPagination, elkLoggerSetup){
 
     return {
-        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__requiredFieldsOnCreate__/g, /__validQuery__/g, /__validUpdateData__/g, /__elementsViewedInPagination__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName, requiredFieldsOnCreate, validQuery, validUpdateData, elementViewedInPagination]
+        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__requiredFieldsOnCreate__/g, /__validQuery__/g, /__validUpdateData__/g, /__elementsViewedInPagination__/g, /__elkLoggerSetup__/],
+        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName, requiredFieldsOnCreate, validQuery, validUpdateData, elementViewedInPagination, elkLoggerSetup]
     };
 };
 
@@ -281,9 +284,9 @@ exports.route               = function (modelName) {
 exports.dockerCompose       = function () {
 
     return {
-        from : [/__serviceName__/g, /__port__/g, /__runningMode__/g, /__reverseProxy__/g, /__collectionReturnSize__/g, /__elasticSearchUrl__/g],
+        from : [/__serviceName__/g, /__port__/g, /__runningMode__/g, /__reverseProxy__/g, /__collectionReturnSize__/g, /__elasticSearchUrl__/g, /__logStashPort__/g],
         to: [snakeCase(mc.mergedConfig.serviceName), mc.mergedConfig.environment.PORT, mc.mergedConfig.environment.MODE,
-            mc.mergedConfig.environment.REVERSE_PROXY, mc.mergedConfig.environment.COLLECTION_RETURN_SIZE, mc.mergedConfig.environment.ELASTIC_SEARCH_URL]
+            mc.mergedConfig.environment.REVERSE_PROXY, mc.mergedConfig.environment.COLLECTION_RETURN_SIZE, mc.mergedConfig.environment.ELASTIC_SEARCH_URL,mc.mergedConfig.environment.LOG_STASH_PORT]
     };
 };
 
