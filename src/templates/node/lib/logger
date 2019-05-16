@@ -1,0 +1,43 @@
+/**
+ * @author              __author__
+ * @name                __serviceName__
+ * @module              logger.js
+ * @description         Logger module
+ * @kind                Logger
+ * @copyright           __copyright__
+ */
+
+let
+    bunyan                  = require('bunyan'),
+    bunyanTCP               = require('bunyan-logstash-tcp'),
+    config                  = require('../../../config');
+
+/**
+ * @name            - Log
+ * @description     - Logs message by name, level and message
+ * @param level     - Level of the message (debug,error)
+ * @param message   - Message to log.
+ */
+exports.log = function (level, message) {
+    let logger;
+    try{
+        logger = bunyan.createLogger({
+            name: "__serviceName__",
+            streams: [{
+                level: level,
+                stream: process.stdout
+            },{
+                level: level,
+                type: "raw",
+                stream: bunyanTCP.createStream({
+                    host: config.REVERSE_PROXY,
+                    port: config.LOG_STASH_PORT
+                })
+            }],
+            level: 'debug'
+        });
+    }catch (e){
+        console.error(e);
+    }
+    logger[level](message);
+};

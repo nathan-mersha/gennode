@@ -18,10 +18,9 @@ let
 
     debug                   = require('debug')('__serviceName__/controller/__modelName__'),
     util                    = require('util'),
+__elkLoggerSetup__
     async                   = require('async');
 
-// Elk stack logger
-__elkLoggerSetup__
 
 /**
  * @name                - Create

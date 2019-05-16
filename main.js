@@ -78,6 +78,7 @@ module.exports = {
             generateRouteIndex,
             generateRoutes,
             generateDockerFiles,
+            generateLoggerFile,
             installPackages,
             generateAuthService,
             generateUserService,
@@ -807,29 +808,16 @@ module.exports = {
                     visibleElements = visibleElements.concat("firstModified lastModified"); // Default values to be visible on pagination call.
                     return visibleElements;
                 }
-                
-                
+
+                /**
+                 *
+                 *
+                 * @returns {*}
+                 */
                 function generateElkLogger() {
                     if(mergedConfig.elkLogger){
                         return `
-let 
-    bunyan                  = require('bunyan'),
-    bunyantcp               = require('bunyan-logstash-tcp'),
-    log = bunyan.createLogger({
-        name: 'Agent Service',
-        streams: [{
-            level: 'debug',
-            stream: process.stdout
-        },{
-            level: 'debug',
-            type: "raw",
-            stream: bunyantcp.createStream({
-                host: config.REVERSE_PROXY,
-                port: config.LOG_STASH_PORT
-            })
-        }],
-        level: 'debug'
-    });
+    log                     = require('../lib/helper/others/logger'),
                         `
                     }else{
                         return "";
@@ -1003,6 +991,16 @@ let
                 callback(null);
             }
 
+        }
+
+        function generateLoggerFile             (callback) {
+            console.log(`${log} 26. Generating logger files.`);
+            if(mergedConfig.elkLogger){
+                lib.generator(path.resolve(__dirname, './src/templates/node/lib/logger'), replaceValues.logger(), 'logger.js', './lib/helper/others', callback);
+            }else{
+                console.log(`Skip generating logger file.`);
+                callback(null);
+            }
         }
 
         /**

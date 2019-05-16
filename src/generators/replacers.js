@@ -291,6 +291,18 @@ exports.dockerCompose       = function () {
 };
 
 /**
+ * @name                            - Logger
+ * @description                     - Creates logger file for logstash
+ * @returns {{from: [RegExp,RegExp,RegExp], to: [null,null,null]}}
+ */
+exports.logger              = function () {
+    return {
+        from : [/__author__/g, /__serviceName__/g, /__copyright__/g],
+        to: [mc.mergedConfig.author, mc.mergedConfig.serviceName, mc.mergedConfig.copyright]
+    };
+};
+
+/**
  * @name                            - Docker file
  * @description                     - Replaces all docker file place holders by defined values.
  * @return {{from: [RegExp,RegExp], to: [*,*]}}
