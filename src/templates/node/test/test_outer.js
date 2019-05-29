@@ -56,23 +56,6 @@ function isPaginatedResponse(body){
 }
 
 /**
- * @name                - Are objects equal type ignored
- * @description         - Compares if the first object has all keys of the second, type ignored.
- * @param object1       - First object
- * @param object2       - Second object
- */
-function areObjectsEqualTypeIgnored(object1, object2) {
-    function castValTo(obj) {
-        let objKeys = Object.keys(obj);
-        objKeys.forEach(function (key) {
-            obj[key] = obj[key].toString();
-        });
-        return obj;
-    }
-    expect(castValTo(object1)).to.include(castValTo(object2))
-}
-
-/**
  * @name                - Is update response
  * @description         - Evaluates if body is update response
  * @param body          - Body to evaluate

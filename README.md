@@ -89,6 +89,8 @@ point to the container itself.
 
 > `$ npm run test`
 
+> On some platforms --exit flag may not work, so consider remove if the script fails
+
 > This will insure all of the files are generated.
 
 #### Main

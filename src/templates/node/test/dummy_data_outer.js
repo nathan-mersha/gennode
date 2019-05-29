@@ -12,7 +12,8 @@ let
 
 const customMock = {
     objectId : new mongoose.Types.ObjectId,
-    buffer   : new mongoose.Types.Buffer
+    buffer   : new mongoose.Types.Buffer,
+    dates : new Date()
 };
 
 /**

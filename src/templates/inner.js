@@ -16,7 +16,8 @@ let
 
 const customMock = {
     objectId : new mongoose.Types.ObjectId,
-    buffer  : new mongoose.Types.Buffer
+    buffer  : new mongoose.Types.Buffer,
+    dates : new Date()
 };
 
 let dummyDataTemplateGenerator = function(obj) {
@@ -79,7 +80,7 @@ let dummyDataTemplateGenerator = function(obj) {
                 template = template.concat(`"${key}" : "{{buffer}}" ,\ `);
             }else if(elem.type === "Date") {
                 if (! possibleDateValue()) {
-                    template = template.concat(`"${key}" : "{{date "1900" "2018"}}" ,\ `);
+                    template = template.concat(`"${key}" : "{{dates}}" ,\ `);
                 }
             }else if(elem.type === "ObjectId" || elem.type === "Oid") { // Mongoose object id
                 template = template.concat(`"${key}" : "{{objectId}}" ,\ `);
@@ -201,7 +202,6 @@ module.exports = {
                         let body = res.body;
                         expect(err).to.be.null;
                         is${modelName}(body, true);
-                        areObjectsEqualTypeIgnored(body, dummyData.${modelName}.create.success);
                         dummyData.${modelName}.get.success = body;
                         done();
                     });
@@ -379,6 +379,8 @@ module.exports = {
                     if(types.public[typeKey].length !== 0) {
                         if(typeKey === "ObjectId" || typeKey === "Oid") {
                             evalConstruct.publicEval.push(`expect(new objectId(${types.public[typeKey]})).to.be.an.instanceof(objectId);`);
+                        }else if(typeKey === "Date") {
+                            evalConstruct.publicEval.push(`expect(new Date(${types.public[typeKey]})).to.be.an.instanceof(Date);`);
                         }else if(typeKey !== "Mixed"){
                             evalConstruct.publicEval.push(`expect(${types.public[typeKey]}).to.be.a('${typeKey}');`);
                         }
@@ -386,6 +388,8 @@ module.exports = {
                     if(types.private[typeKey].length !== 0) {
                         if(typeKey === "ObjectId" || typeKey === "Oid") {
                             evalConstruct.privateEval.push(`expect(new objectId(${types.private[typeKey]})).to.be.an.instanceof(objectId);`);
+                        }else if(typeKey === "Date") {
+                            evalConstruct.privateEval.push(`expect(new Date(${types.private[typeKey]})).to.be.an.instanceof(Date);`);
                         }else if(typeKey !== "Mixed"){
                             evalConstruct.privateEval.push(`expect(${types.private[typeKey]}).to.be.a('${typeKey}');`);
                         }
