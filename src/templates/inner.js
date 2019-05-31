@@ -271,6 +271,18 @@ module.exports = {
                         done();
                     });
                 });
+                
+                this.timeout(10000);
+                it("Should fail to update ${modelName} data (Query not found)" ,function (done) {
+
+                    let query = '';
+                    validators.sendRequest(url.${modelName}.update(query),'put',dummyData.update.success,400,function (err,res) {
+                        let body = res.body;
+                        expect(err).to.be.null;
+                        validators.isErrorResponse(body);
+                        done();
+                    });
+                });
         
                 this.timeout(10000);
                 it("Should fail to update ${modelName} data (Invalid update data)",function (done) {
@@ -298,6 +310,17 @@ module.exports = {
                         done();
                     });
                 });
+                
+                this.timeout(10000);
+                it("Should fail remove ${modelName} data (Query not found)" ,function (done) {
+                    let query = '';
+                    validators.sendRequest(url.${modelName}.remove(query),'del',null,400,function (err, res) {
+                        let body = res.body;
+                        expect(err).to.be.null;
+                        validators.isErrorResponse(body);
+                        done();
+                });
+            });
             });
         });
     `
