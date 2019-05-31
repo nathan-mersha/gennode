@@ -127,6 +127,18 @@ module.exports = function () {
             });
 
             this.timeout(10000);
+            it("Should fail to update __modelName__ data (Query not found)" ,function (done) {
+
+                let query = ``;
+                validators.sendRequest(url.__modelName__.update(query),'put',dummyData.update.success,400,function (err,res) {
+                    let body = res.body;
+                    expect(err).to.be.null;
+                    validators.isErrorResponse(body);
+                    done();
+                });
+            });
+
+            this.timeout(10000);
             it("Should fail to update __modelName__ data (Invalid update data)",function (done) {
                 let query = `_id=${dummyData.get.success._id}`;
                 validators.sendRequest(url.__modelName__.update(query),'put',dummyData.update.invalidData,400,function (err,res) {
@@ -149,6 +161,17 @@ module.exports = function () {
                     expect(err).to.be.null;
                     validators.isRemoveResponse(body);
                     expect(body.n).to.be.at.least(1);
+                    done();
+                });
+            });
+
+            this.timeout(10000);
+            it("Should fail remove __modelName__ data (Query not found)" ,function (done) {
+                let query = ``;
+                validators.sendRequest(url.__modelName__.remove(query),'del',null,400,function (err, res) {
+                    let body = res.body;
+                    expect(err).to.be.null;
+                    validators.isErrorResponse(body);
                     done();
                 });
             });
