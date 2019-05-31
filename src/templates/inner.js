@@ -276,7 +276,7 @@ module.exports = {
                 it("Should fail to update ${modelName} data (Query not found)" ,function (done) {
 
                     let query = '';
-                    validators.sendRequest(url.${modelName}.update(query),'put',dummyData.update.success,400,function (err,res) {
+                    validators.sendRequest(url.${modelName}.update(query),'put',dummyData.${modelName}.update.success,400,function (err,res) {
                         let body = res.body;
                         expect(err).to.be.null;
                         validators.isErrorResponse(body);
@@ -314,7 +314,7 @@ module.exports = {
                 this.timeout(10000);
                 it("Should fail remove ${modelName} data (Query not found)" ,function (done) {
                     let query = '';
-                    validators.sendRequest(url.${modelName}.remove(query),'del',null,400,function (err, res) {
+                    sendRequest(url.${modelName}.remove(query),'del',null,400,function (err, res) {
                         let body = res.body;
                         expect(err).to.be.null;
                         validators.isErrorResponse(body);
