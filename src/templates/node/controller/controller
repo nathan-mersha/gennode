@@ -174,15 +174,21 @@ exports.update          = function (req, res, next) {
     function updateData (validUpdateData,callback)  {
         debug("Update service init...");
 
-        __modelName__DAL.updateMany(query,validUpdateData,function (err,data) {   // handling update.
-            queryResponseHandler(err,data,res,function (err, data) {    // Possible errors are handled.
-                res.status(200);
-                res.send(data);
-                callback(null);
-            });
-        });
+        if(Object.keys(query).length === 0){
+                let errMsg = errorCodes.SEC.NO_DATA_FOUND;
+                errMsg.detail = "No query data found.";
+                res.status(400);
+                res.json(errMsg)
+        }else{
+             __modelName__DAL.updateMany(query,validUpdateData,function (err,data) {   // handling update.
+                 queryResponseHandler(err,data,res,function (err, data) {    // Possible errors are handled.
+                     res.status(200);
+                     res.send(data);
+                     callback(null);
+                 });
+             });
+        }
     }
-
 };
 
 /**
@@ -197,14 +203,19 @@ exports.remove          = function (req, res, next) {
 
     let query = controllerHelper.queryFilter(req,[__validQuery__, "_id", "__v"]);
 
-    __modelName__DAL.removeMany(query,function (err,data) {   // handling update.
-        queryResponseHandler(err,data,res,function (err, data) {   // Possible errors are handled.
-            res.status(200);
-            res.send(data);
-        });
-    });
-
-
+    if(Object.keys(query).length === 0){
+            let errMsg = errorCodes.SEC.NO_DATA_FOUND;
+            errMsg.detail = "No query data found.";
+            res.status(400);
+            res.json(errMsg)
+    }else{
+           __modelName__DAL.removeMany(query,function (err,data) {   // handling update.
+               queryResponseHandler(err,data,res,function (err, data) {   // Possible errors are handled.
+                   res.status(200);
+                   res.send(data);
+               });
+           });
+    }
 };
 
 
