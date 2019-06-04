@@ -5,7 +5,7 @@
   "main": "app",
   "scripts": {
     "run": "node app",
-    "test": "istanbul cover _mocha -- --reporter mochawesome --reporter-options reportDir=report,reportFilename=index --exit",
+    "test": "istanbul cover _mocha -- --reporter mochawesome --reporter-options reportDir=report,reportFilename=index --exit || istanbul cover _mocha -- --reporter mochawesome --reporter-options reportDir=report,reportFilename=index",
     "start": "pm2-docker app.js --name __serviceName__ -i 1",
     "apidoc": "apidoc -i ./routes -o ./apidocs"
   },

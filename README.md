@@ -16,28 +16,12 @@ Following the trendy naming paradigm of __* aa *__ , here comes another one __Se
 So what is **SAAC** about, well a very simple **CRUD** server has a set of properties that can be described in a simple configuration file.
 This properties could be one of the ones described below. This information is almost always found in the
 documentation accompanying the server. However there is an obvious limitation for documentations as such,
-and with good reasoning. That is one can read the in's and out's of the server, but one can't recreate it directly
+and with good reason. That is one can read the in's and out's of the server, but one can't recreate it directly
 from the documentation (say if one wishes to spin up a new server with minor modifications to the first.)
 The main purpose of this module is to aid the developer to spin up a new **REST CRUD** project in less than a minute with all the durgeroies completed.
 
-**What are the durgeroies I speak of?**
-
-I have worked on many microservice oriented projects, and each project begins with a setup of a proxy, authentication
-service and user service. After am done with that I'll have to begin with **Server A**. Now **Server A** has a specified
-models, running ports etc. And identify which fields in the models are required upon creation, which can be used to query,
-which can be updatable. And after am done with that, do the dal, then the **CRUD** controllers and route. Then hook to proxy.
-If am using https between my services add the root certificate to my requester module, Define error codes, some constants
-(running mode, user levels etc...) Then setup my docker config, then pipeline code, then test the godamn thing, with nice reports.
-After am done with that write documentation.
-
-This is durgery i speak of, and i have not even began the real work yet
-(the functionality that is unique to **Server A**) This setup takes me a good half day.This used to be fun on my early days
-of NodeJS (since it's part of the learning process), but now it's one of those things i trully hate doing. So if all project setups
-could be done with some smart global replacement by using templates, why not?
-
 ### Naming
-There are over half a million packages on npm, so the naming was more challenging than i care to admit. GenNode is short for
-Generate NodeJS.
+GenNode is short for Generate NodeJS.
 
 ### Prerequisite and Note
 1. An installation of mongodb on the running machine is required for the tests to pass, and for the server to start. Make sure the mongod
@@ -88,8 +72,6 @@ point to the container itself.
 > `$ npm run apidoc`
 
 > `$ npm run test`
-
-> On some platforms --exit flag may not work, so consider remove if the script fails
 
 > This will insure all of the files are generated.
 
@@ -384,6 +366,7 @@ at runtime) So avoid using similar names as such.
 * Minify
 * Elasticsearch container
 * Https request response support.
+* Stress test
 
 ### Contributing
 **If you have anything in mind, that you think is would be awesome to include in the generated server files, feel free to create an issue [here](https://github.com/nathan-mersha/gennode/issues), or fork the project.**
