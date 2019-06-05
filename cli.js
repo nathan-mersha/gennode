@@ -225,6 +225,14 @@ let questions = [
     {
         type : 'input',
         prefix : prefixMessage,
+        default : defaultValues.instance,
+        name : 'instance',
+        message : `App Instance (Input 0 will utilize the whole logical core)`
+    },
+
+    {
+        type : 'input',
+        prefix : prefixMessage,
         default : defaultValues.commit,
         name : 'commit',
         message : `Commit files`

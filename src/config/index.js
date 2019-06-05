@@ -68,6 +68,7 @@ module.exports = {
     readMe                  : true,
     commit                  : true,
     // commitMessage           : 'Initial commit by gennode.',
+    instance                : 1,
     runServer               : false,
 };
 

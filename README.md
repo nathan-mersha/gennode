@@ -11,7 +11,7 @@ Gen node is available on npm, type:
 
 and install it globally, now you can use it from the command line.
 
-### Philosopy
+### Introduction
 Following the trendy naming paradigm of __* aa *__ , here comes another one __Server as a configuration__.
 So what is **SAAC** about, well a very simple **CRUD** server has a set of properties that can be described in a simple configuration file.
 This properties could be one of the ones described below. This information is almost always found in the
@@ -106,6 +106,7 @@ point to the container itself.
 |enableProxy            |Generate [Nginx](https://www.nginx.com/ "Nginx") configuraiton file|true|Boolean|
 |readMe                 |Generates readme file for the server.|true|Boolean|
 |documentation          |Generates documentation powered by [ApiDoc](https://www.npmjs.com/package/apidoc "ApiDoc")|true|Boolean|
+|instance               |App instance (A value of 0 will run the server in cluster mode utilizing all logical cores)|1|Number|
 |commit                 |Commits the generated file.|true|Boolean|
 
 ##### <a name="dependantService">Dependant Services</a>
@@ -360,13 +361,14 @@ at runtime) So avoid using similar names as such.
 ### Upcoming features
 
 * Multilevel schema support
-* Authentication service
 * User management service
-* Separate test suites
 * Minify
 * Elasticsearch container
 * Https request response support.
 * Stress test
+
+### New on 0.3.9
+* Application instance
 
 ### Contributing
 **If you have anything in mind, that you think is would be awesome to include in the generated server files, feel free to create an issue [here](https://github.com/nathan-mersha/gennode/issues), or fork the project.**

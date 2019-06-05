@@ -21,8 +21,8 @@ let
 exports.packageJSON         = function packageJSON(){
 
     return {
-        from : [/__serviceName__/g, /__version__/g, /__author__/g, /__license__/g, /__repoURL__/g],
-        to: [snakeCase(mc.mergedConfig.serviceName), mc.mergedConfig.version, mc.mergedConfig.author, mc.mergedConfig.licence, mc.mergedConfig.repoURL]
+        from : [/__serviceName__/g, /__version__/g, /__author__/g, /__license__/g, /__repoURL__/g, /__instance__/g],
+        to: [snakeCase(mc.mergedConfig.serviceName), mc.mergedConfig.version, mc.mergedConfig.author, mc.mergedConfig.licence, mc.mergedConfig.repoURL, mc.mergedConfig.instance]
     };
 };
 
