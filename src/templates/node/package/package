@@ -6,7 +6,7 @@
   "scripts": {
     "run": "node app",
     "test": "istanbul cover _mocha -- --reporter mochawesome --reporter-options reportDir=report,reportFilename=index --exit || istanbul cover _mocha -- --reporter mochawesome --reporter-options reportDir=report,reportFilename=index",
-    "start": "pm2-docker app.js --name __serviceName__ -i __instance__ || pm2 restart __serviceName__ ",
+    "start": "pm2 start app.js --name __serviceName__ -i __instance__ || pm2 restart __serviceName__ ",
     "apidoc": "apidoc -i ./routes -o ./apidocs"
   },
   "dependencies": {
