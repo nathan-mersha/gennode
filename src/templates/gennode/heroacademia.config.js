@@ -130,6 +130,7 @@ module.exports = {
     jenkins : true,
     enableProxy : true,
     readMe : true,
+    instance : "1",
     documentation : true,
     commit : true
 };
