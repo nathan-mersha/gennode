@@ -11,9 +11,10 @@ Gen node is available on npm, type:
 
 and install it globally, now you can use it from the command line.
 
-### New on 0.3.12
+### New on 0.3.*
 * Application instance option
 * Jenkinsfile added stages for apidoc creation and given privilege for some commands that might otherwise fail.
+* Start script bug fix
 
 ### Introduction
 Following the trendy naming paradigm of __* aa *__ , here comes another one __Server as a configuration__.
