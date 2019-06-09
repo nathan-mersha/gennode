@@ -1,4 +1,4 @@
-# Gen Node
+# GenNode
 
 #### Author
 Nathan Mersha
