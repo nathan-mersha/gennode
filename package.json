@@ -1,6 +1,6 @@
 {
   "name": "gennode",
-  "version": "0.3.15",
+  "version": "0.4.0",
   "description": "Simple NodeJs server generator",
   "preferGlobal": true,
   "bin": {
