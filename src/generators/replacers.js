@@ -166,8 +166,8 @@ exports.multipleSeqRep      = function multipleSeqRep(mark, replaceTo, tabs = 2,
 exports.model               = function model(modelName){
 
     return {
-        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g],
-        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName]
+        from : [/__serviceName__/g, /__author__/g, /__copyright__/g, /__modelName__/g, /__host__/g],
+        to: [mc.mergedConfig.serviceName, mc.mergedConfig.author, mc.mergedConfig.copyright, modelName, mc.mergedConfig.environment.REVERSE_PROXY]
     };
 };
 

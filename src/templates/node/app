@@ -26,6 +26,32 @@ let
     dbCFailure  = 0,
     initializer = require('./lib/middleware/initializer');
 
+// // Gennode libraries declaration begin
+//
+// // todo : Uncomment the below code to implement gennode authorization middleware
+// // View documentation at ( https://www.npmjs.com/package/gennode_authorization_mw )
+// let GennodeAuthMW = require('gennode_authorization_mw');
+// let GennodeAuthMWInstance = new GennodeAuthMW({
+//     host    : "__host__",
+//     port    : 3400, // todo : assign port here ( Default value : 3400 )
+//     endpoint : "/auth/token/validate",
+//     connection : "http", // http call, seneca // future seneca support
+//     message         : {
+//         notAuthorized   : "Access Denied"   // Code 401
+//     },
+//     authorizationKey : "Authorization" // Defines the key name inside the request header.
+//     // getAccessObject : this.getAccessObject, // The default implementation works (View documentation on how it can be overridden)
+//     // getToken        : this.getToken  // The default implementation works (View documentation on how it can be overridden)
+// });
+//
+//
+// // todo : Uncomment the below code to implement gennode_registrar
+// // View documentation at ( https://www.npmjs.com/package/gennode_registrar )
+// let gennodeRegistrar = require('gennode_registrar');
+// let registrar = new gennodeRegistrar("__serviceName__","serviceCode","__host__:3400/auth/service"); // todo insert service code (ex : 01)
+//
+// // Gennode libraries declaration end
+
 /**
  * @description     - Connecting to mongodb
  */
@@ -56,6 +82,8 @@ mongoose.connection.on('error',function (err) {
  * @description     - Provides multiple securities.
  */
 app.use(helmet());
+
+// app.use(GennodeAuthMWInstance.authorize); // todo : uncomment this line to enable gennode authorization functionality
 
 /**
  * @description     - Defining mode and access control
@@ -103,6 +131,9 @@ app.use(parser);
  * @description     - Routing app.
  */
 route(app);
+
+// registrar.register(app,(error,response,body)=>{debug(body);}); // todo : uncomment this line to enable router registration.
+
 
 /**
  * @description     - Request handler for unmatched endpoints.

@@ -15,6 +15,17 @@ let
     debug               = require('debug')('__serviceName__/model/__modelName__'),
     mongoosePaginate    = require('mongoose-paginate');
 
+// // todo : Uncomment the below code to implement gennode_acm
+// // View documentation at ( https://www.npmjs.com/package/gennode_acm )
+// let gennodeACM = require('gennode_acm');
+// let gennodeACMInstance = new gennodeACM({
+//     host        : "__host__",
+//     port        : 3400,
+//     endpoint    : "/auth/token/validate",
+//     connection  : "http"
+// });
+// // Gennode acm declaration ends here
+
 let __modelName__ = new Schema({
     // Schema definition begins here
      firstModified : {type : Date, es_indexed : true},
@@ -22,6 +33,23 @@ let __modelName__ = new Schema({
     // Schema definition ends here
 });
 
+// // todo : Uncomment the below code to enable acm registration on post save hook
+// __modelName__.post('save', function(doc) {
+//     let objectACM = {
+//         object : doc._id, // Defines the object id ( or anything you consider unique )
+//         accessControl : { // Defines the default access roles on your data
+//             read : ["any"],
+//             update : ["Admin 1", "Admin 2", "Admin 3"],
+//             delete : ["Admin 2"],
+//         }
+//     };
+//
+//     // Set acm here.
+//     gennodeACMInstance.setACM(objectACM, function (error, response, body) {
+//         console.log(response);
+//     });
+// });
+// // post save acm registration ends here.
 
 /*
  Adding plugins
