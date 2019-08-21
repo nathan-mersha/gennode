@@ -11,10 +11,8 @@ Gen node is available on npm, type:
 
 and install it globally, now you can use it from the command line.
 
-### New on 0.3.*
-* Application instance option
-* Jenkinsfile added stages for apidoc creation and given privilege for some commands that might otherwise fail.
-* Start script bug fix
+### New on 1.0.0
+* Added gennode_authorization features as describe [here](https://www.npmjs.com/package/gennode_authorization)
 
 ### Introduction
 Following the trendy naming paradigm of __* aa *__ , here comes another one __Server as a configuration__.
@@ -369,8 +367,6 @@ at runtime) So avoid using similar names as such.
 * Multilevel schema support
 * User management service
 * Minify
-* Elasticsearch container
-* Https request response support.
 * Stress test
 
 
