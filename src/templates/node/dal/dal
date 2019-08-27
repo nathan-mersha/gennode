@@ -127,6 +127,7 @@ exports.pushToArray             = function (query, targetedArray,elements,callba
         if(!data[targetedArray].includes(...elements)) {
             data[targetedArray].push(...elements);
         }
+        data.markModified(targetedArray);
         data.save();
         callback(err,data);
     });
@@ -143,6 +144,7 @@ exports.pushToArray             = function (query, targetedArray,elements,callba
 exports.pullFromArray             = function (query, targetedArray,elements,callback) {
     Model.findOne(query,function (err, data) {
         data[targetedArray].pull(...elements);
+        data.markModified(targetedArray);
         data.save();
         callback(err,data);
     });
