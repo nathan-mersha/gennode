@@ -21,7 +21,7 @@ let
 // let gennodeACMInstance = new gennodeACM({
 //     host        : "__host__",
 //     port        : 3400,
-//     endpoint    : "/auth/token/validate",
+//     endpoint    : "/auth/acm",
 //     connection  : "http"
 // });
 // // Gennode acm declaration ends here
@@ -37,6 +37,8 @@ let __modelName__ = new Schema({
 // __modelName__.post('save', function(doc) {
 //     let objectACM = {
 //         object : doc._id, // Defines the object id ( or anything you consider unique )
+//         serviceName : "__serviceName__",
+//         schemaName : "__modelName__",
 //         accessControl : { // Defines the default access roles on your data
 //             read : ["any"],
 //             update : ["Admin 1", "Admin 2", "Admin 3"],
