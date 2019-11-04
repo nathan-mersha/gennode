@@ -32,6 +32,7 @@ let
 // // View documentation at ( https://www.npmjs.com/package/gennode_authorization_mw )
 // let GennodeAuthMW = require('gennode_authorization_mw');
 // let GennodeAuthMWInstance = new GennodeAuthMW({
+//     service : "Your service name",
 //     host    : "__host__",
 //     port    : 3400, // todo : assign port here ( Default value : 3400 )
 //     endpoint : "/auth/token/validate",
