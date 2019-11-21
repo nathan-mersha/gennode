@@ -93,7 +93,24 @@ exports.find            = function (req, res, next) {
         }else{
             getPublic(req, res, next);
         }
-    }else{
+    }
+
+    else if(req.query.all === "true"){
+        let query = controllerHelper.queryFilter(req,[__validQuery__ , "_id", "__v"]);
+            __modelName__DAL.getAllCollection(query, function (err, data) {
+                if(!err){
+                    res.status(200);
+                    res.json(data);
+                }else{
+                    let errMsg = errorCodes.SEC.SERVER_SIDE_ERROR;
+                    errMsg.detail = err.toString();
+                    res.status(500);
+                    res.json(errMsg);
+                }
+            });
+    }
+
+    else{
         let option = {
             page     : util.isNullOrUndefined(req.query.page)   ? 1                             : Number(req.query.page),   // assigns default page value, if not specified.
             sort     : util.isNullOrUndefined(req.query.sort)   ? {_id : -1}                    : req.query.sort,           // assigns default sort param value, if not specified.
@@ -216,6 +233,29 @@ exports.remove          = function (req, res, next) {
                });
            });
     }
+};
+
+/**
+ * @name                - Count
+ * @description         - Counts by query
+ * @param req           - Request object
+ * @param res           - Response object
+ * @param next          - Next
+ */
+exports.count           = function (req, res, next) {
+    let query = controllerHelper.queryFilter(req,[__validQuery__, "_id", "__v"]);
+
+    __modelName__DAL.count(query, function (err, count) {
+        if(err){
+            let errMsg = errorCodes.SEC.SERVER_SIDE_ERROR;
+            errMsg.detail = err;
+            res.status(500);
+            res.json(errMsg);
+        }else{
+            res.status(200);
+            res.json({count : count});
+        }
+    });
 };
 
 

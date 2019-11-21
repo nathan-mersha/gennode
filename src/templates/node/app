@@ -26,6 +26,9 @@ let
     dbCFailure  = 0,
     initializer = require('./lib/middleware/initializer');
 
+// Defining the mongodb address based on the defined environment
+let mongodbURL  = process.env.mode === "test_mode" ? `${config.MONGODB_URL}_test` : config.MONGODB_URL;
+
 // // Gennode libraries declaration begin
 //
 // // todo : Uncomment the below code to implement gennode authorization middleware
@@ -56,7 +59,7 @@ let
 /**
  * @description     - Connecting to mongodb
  */
-mongoose.connect(config.MONGODB_URL, {useNewUrlParser: true});
+mongoose.connect(mongodbURL, {useNewUrlParser: true});
 
 
 /**

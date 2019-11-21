@@ -23,7 +23,7 @@ describe("__modelName__",function () {
         // End body expected evaluation here (public $ private)
     }
 
-    describe("Create" ,function () {
+    describe("Create - here 1" ,function () {
         it("Should successfully create __modelName__" ,function (done) {
             done();
             sendRequest(url.__modelName__.create(),'post',dummyData.__modelName__.create.success,201,null,function (err,res) {
@@ -59,6 +59,17 @@ describe("__modelName__",function () {
             let validQuery = '__validQuery__';
             done();
             sendRequest(url.__modelName__.findPaginated(validQuery),'get',null,200,null,function (err,res) {
+            });
+        });
+    });
+
+    describe("Count" ,function () {
+
+        this.timeout(5000);
+        it("Should successfully count __modelName__ data" ,function (done) {
+            let validQuery = '__validQuery__';
+            done();
+            sendRequest(url.__modelName__.count(validQuery),'get',null,200,function (err,res) {
             });
         });
     });

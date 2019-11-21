@@ -107,7 +107,7 @@ let questions = [
         prefix : prefixMessage,
         default : defaultValues.environment.MODE,
         name : 'mode',
-        message : `Mode`
+        message : `Mode : Available options (prod_mode, test_mode)`
     },
 
     {

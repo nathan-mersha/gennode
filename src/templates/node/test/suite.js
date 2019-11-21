@@ -111,6 +111,20 @@ module.exports = function () {
             });
         });
 
+        describe("Count" ,function () {
+
+            this.timeout(5000);
+            it("Should successfully count __modelName__ data" ,function (done) {
+                let validQuery = '__validQuery__';
+                validators.sendRequest(url.__modelName__.count(validQuery),'get',null,200,function (err,res) {
+                    let body = res.body;
+                    expect(err).to.be.null;
+                    validators.isCountResponse(body);
+                    done();
+                });
+            });
+        });
+
         describe("Update" ,function () {
 
             this.timeout(10000);

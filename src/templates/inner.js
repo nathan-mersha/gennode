@@ -166,6 +166,8 @@ module.exports = {
                 findByIdPublic  : (id)=> ${"`${"}${modelName}Route${"}"}/?_id=${"${id}"}${"`"},
                 findByIdPrivate : (id)=> ${"`${"}${modelName}Route${"}"}/?_id=${"${id}"}&private=true${"`"},
                 findPaginated   : (query)=> ${"`${"}${modelName}Route${"}"}/?${"${query}"}${"`"},
+                findAll         : ()=> ${"`${"}${modelName}Route${"}"}/?all=true${"`"},
+                count           : (query)=> ${"`${"}${modelName}Route${"}"}/count?${"${query}"}${"`"},
                 update          : (query)=> ${"`${"}${modelName}Route${"}"}/?${"${query}"}${"`"},
                 remove          : (query)=> ${"`${"}${modelName}Route${"}"}/?${"${query}"}${"`"}
             },
@@ -242,8 +244,23 @@ module.exports = {
                     });
                 });
             });
+            
+             describe("Count" ,function () {
+            
+                this.timeout(10000);
+                it("Should successfully count ${modelName} data" ,function (done) {
+                    let validQuery = '__validQuery__';
+                    sendRequest(url.${modelName}.count(validQuery),'get',null,200,function (err,res) {
+                        let body = res.body;
+                        expect(err).to.be.null;
+                        isCountResponse(body); 
+                        done();
+                    });
+                });
+                
+            });
         
-            describe("Find paginated" ,function () {
+            describe("Find collection" ,function () {
             
                 this.timeout(10000);
                 it("Should successfully retrieve ${modelName} paginated data" ,function (done) {
@@ -252,6 +269,16 @@ module.exports = {
                         let body = res.body;
                         expect(err).to.be.null;
                         isPaginatedResponse(body); 
+                        done();
+                    });
+                });
+                
+                this.timeout(10000);
+                it("Should successfully retrieve ${modelName} all data" ,function (done) {
+                    sendRequest(url.${modelName}.findAll(),'get',null,200,function (err,res) {
+                        let body = res.body;
+                        expect(err).to.be.null;
+                        isAllResponse(body); 
                         done();
                     });
                 });

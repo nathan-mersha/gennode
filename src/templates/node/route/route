@@ -50,6 +50,41 @@ let
 router.post('/'     , controller.create);
 
 /**
+ * @api             {get} __baseURL__/__modelName__/count     Count
+ * @apiVersion      __version__
+ * @apiName         Count
+ * @apiGroup        __modelName__
+ * @apiDescription  Counts __modelName__ data by query
+ *
+ * @apiPermission     All
+ *
+ * End inserting other query values here GET
+ *
+ * @apiSuccess              {Number}     count                              - Document count
+ *
+ * @apiSuccessExample Body
+ *
+ * {
+        "count" : 12
+    }
+ *
+ * @apiSampleRequest http://localhost:__port____baseURL__/__modelName__/count
+ *
+ * @apiError    (400)       {Object}    AUTHENTICATION_NOT_SET              - Authentication values are not set.
+ * @apiError    (400)       {Object}    AUTHENTICATION_TYPE_NOT_ACCORD      - Authentication type is not according to constants.
+ * @apiError    (400)       {Object}    AUTHENTICATION_VALUE_NOT_SET        - Authentication values are not set.
+ * @apiError    (401)       {Object}    UNAUTHORIZED_ACCESS                 - Token is not authorized to access this route..
+ * @apiError    (401)       {Object}    TOKEN_REVOKED                       - Token is revoked.
+ * @apiError    (401)       {Object}    TOKEN_EXPIRED                       - Token has expired.
+ * @apiError    (401)       {Object}    AUTHORIZED_SERVICE_ACCESS_DENIED    - Service has no been granted access.
+ *
+ * @apiError    (400)       {Object}    CAST_ERROR                          - Possible casting error.
+ * @apiError    (400)       {Object}    NO_QUERY_DATA                       - No proper or no query data has been provided.Mainly could be caused by using wrong key in url.
+ * @apiError    (400)       {Object}    NO_DATA_FOUND                       - No data found in query.
+ */
+router.get('/count'      , controller.count);
+
+/**
  * @api             {get} __baseURL__/__modelName__     Get
  * @apiVersion      __version__
  * @apiName         Get
@@ -63,6 +98,8 @@ router.post('/'     , controller.create);
  * @apiParam (Query)        {Boolean}   [lean = false]                      - Lean
  * @apiParam (Query)        {Number}    [offset = 0]                        - Offset
  * @apiParam (Query)        {Number}    [limit = __limitValue__]            - Limit of return
+ * @apiParam (Query)        {String="true"}  [ all]                         - Returns all documents
+
  *
  * End inserting other query values here GET
  *

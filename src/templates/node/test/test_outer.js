@@ -45,6 +45,25 @@ function isErrorResponse(body){
 }
 
 /**
+ * @name                - Is error response
+ * @description         - Checks if body is an error response.
+ * @param body          - Body to check.
+ */
+function isCountResponse(body){
+    expect(body).to.be.an('object').that.includes.all.keys('count');
+    expect(body.count).to.be.a('number');
+}
+
+/**
+ * @name                - Is error response
+ * @description         - Checks if body is an error response.
+ * @param body          - Body to check.
+ */
+function isAllResponse(body){
+    expect(body).to.be.an('array');
+}
+
+/**
  * @name                - Is paginated response
  * @description         - Checks if body is paginated response
  * @param body          - Body to check.

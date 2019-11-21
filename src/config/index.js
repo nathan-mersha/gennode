@@ -27,7 +27,7 @@ module.exports = {
     environment             : {
         DEBUG                   : "*",
         PORT                    : 3300,
-        MODE                    : "test_mode",
+        MODE                    : "prod_mode",
         MONGODB_URL             : "mongodb://localhost:27017/service",
         REVERSE_PROXY           : "http://localhost",
         COLLECTION_RETURN_SIZE  : "24",
