@@ -705,6 +705,32 @@ module.exports = {
       "response": []
     },
     {
+      "name": "Count ${modelName}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://${proxy}:${port}/${baseURL}/${modelName}/count",
+          "protocol": "http",
+          "host": [
+            "${host}"
+          ],
+          "port": "${port}",
+          "path": [
+            "${baseURL}",
+            "${modelName}",
+            "count"
+          ]
+        },
+        "description": "Count ${modelName}"
+      },
+      "response": []
+    },
+    {
       "name": "Delete ${modelName}",
       "request": {
         "method": "DELETE",
@@ -775,6 +801,5 @@ module.exports = {
     }]
 }`
     }
-}
-;
+};
 
