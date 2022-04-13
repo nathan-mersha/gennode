@@ -27,7 +27,7 @@
   "author": "Nathan Mersha",
   "licence": "MIT",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "camelcase": "^5.3.1",
     "chai": "^4.2.0",
     "commander": "^2.20.0",
